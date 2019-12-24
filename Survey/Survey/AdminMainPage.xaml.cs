@@ -10,26 +10,30 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Survey
 {
     /// <summary>
-    /// MainWindow.xaml에 대한 상호 작용 논리
+    /// AdminMainPage.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AdminMainPage : Window
     {
-        public MainWindow()
+        public AdminMainPage()
         {
             InitializeComponent();
+           
+            
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            AdminMainPage adminmainpage = new AdminMainPage();
-            adminmainpage.ShowDialog();
-           
+           var data =e.NewValue as TreeViewItem;
+           Console.WriteLine(data.Header);
+        
         }
+
+       
     }
-}
+ }
+

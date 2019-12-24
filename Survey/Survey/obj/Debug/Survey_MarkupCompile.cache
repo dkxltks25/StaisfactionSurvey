@@ -1,7 +1,7 @@
 ﻿Survey
 
 
-winexe
+exe
 C#
 .cs
 C:\Users\MTPC4-06\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\
@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\MTPC4-06\Desktop\StaisfactionSurvey\Survey\Survey\App.xaml
-11151548125
+2-453016731
 
-5-2017746502
+6-1655644418
 15-1152579029
-MainWindow.xaml;
+AdminMainPage.xaml;MainWindow.xaml;
 
 False
 

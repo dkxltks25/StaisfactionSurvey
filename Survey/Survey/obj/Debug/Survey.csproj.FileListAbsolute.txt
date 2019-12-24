@@ -16,7 +16,9 @@ C:\Users\MTPC4-06\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\MainWindow.
 C:\Users\MTPC4-06\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Survey.g.resources
 C:\Users\MTPC4-06\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Survey.Properties.Resources.resources
 C:\Users\MTPC4-06\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Survey.csproj.GenerateResource.cache
-C:\Users\MTPC4-06\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Survey.csproj.CoreCompileInputs.cache
 C:\Users\MTPC4-06\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Survey.csproj.CopyComplete
 C:\Users\MTPC4-06\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Survey.exe
 C:\Users\MTPC4-06\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Survey.pdb
+C:\Users\MTPC4-06\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\AdminMainPage.g.cs
+C:\Users\MTPC4-06\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\AdminMainPage.baml
+C:\Users\MTPC4-06\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Survey.csproj.CoreCompileInputs.cache
