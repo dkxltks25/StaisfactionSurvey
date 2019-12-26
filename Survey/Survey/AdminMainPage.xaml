@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Survey"
         mc:Ignorable="d"
-         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Title="AdminMainPage" Height="552" Width="870.909" WindowStartupLocation="CenterScreen">
     <DockPanel LastChildFill="false" >
         <!--트리뷰-->
@@ -18,8 +18,8 @@
                 <TreeViewItem Header="시스템" >
                     <TreeViewItem Header="시스템관리" />
                 </TreeViewItem>
-                <TreeViewItem Header="학생관리">
-                    <TreeViewItem   Header="학생조회" />
+                <TreeViewItem Header="학생">
+                    <TreeViewItem   Header="학생관리" />
                 </TreeViewItem>
                 <TreeViewItem  Header="부서관리" Background="{x:Null}">
                     <TreeViewItem  Header="부서지 조회" Background="{x:Null}" />
@@ -46,7 +46,7 @@
             HorizontalAlignment="Center"
             Width="646" Margin="0,66,0,35" 
            >
-            <DataGrid Height="419" Width="645"/>
+            <DataGrid Height="419" Width="645" />
         </WrapPanel>
         <!--헤더-->
         <DockPanel 

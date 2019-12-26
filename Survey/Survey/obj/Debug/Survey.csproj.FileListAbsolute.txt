@@ -22,3 +22,5 @@ C:\Users\MTPC4-06\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Survey.pdb
 C:\Users\MTPC4-06\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\AdminMainPage.g.cs
 C:\Users\MTPC4-06\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\AdminMainPage.baml
 C:\Users\MTPC4-06\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Survey.csproj.CoreCompileInputs.cache
+C:\Users\MTPC4-06\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\StudentAdmin.g.cs
+C:\Users\MTPC4-06\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\StudentAdmin.baml

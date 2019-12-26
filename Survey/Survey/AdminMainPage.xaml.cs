@@ -26,14 +26,20 @@ namespace Survey
             
         }
 
+        //Select값 변경 
         private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
+            // SelectChange
            var data =e.NewValue as TreeViewItem;
-           Console.WriteLine(data.Header);
-        
+           String HeaderValue = data.Header.ToString();
+           if(HeaderValue == "학생관리")
+            {
+                StudentAdmin studentadmin = new StudentAdmin();
+                studentadmin.Show();
+            }
         }
 
-       
+      
     }
  }
 
