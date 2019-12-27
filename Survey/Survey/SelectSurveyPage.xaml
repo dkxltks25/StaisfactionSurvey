@@ -1,0 +1,71 @@
+﻿<Window x:Class="Survey.SelectSurveyPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:Survey"
+        mc:Ignorable="d"
+        Title="SelectSurveyPage" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="0.5*"/>
+        </Grid.RowDefinitions>
+        <materialDesign:Card Grid.ColumnSpan="5">
+            <DockPanel HorizontalAlignment="Right">
+                <WrapPanel VerticalAlignment="Center" Margin="0,2,10,1" >
+                    <Button Height="Auto" Margin="10,10,0,10" Width="66" >
+                        <materialDesign:PackIcon Kind="Information" Width="AUTO" Height="AUTO"/>
+                    </Button>
+                    <Button  Height="Auto" Margin="10,10,0,10" Width="66">
+                        <materialDesign:PackIcon Kind="Cancel" Width="AUTO" Height="AUTO"/>
+                    </Button>
+                    <Button  Height="Auto" Margin="10,10,0,10" Width="66">
+                        <materialDesign:PackIcon Kind="Close" Width="AUTO" Height="AUTO"/>
+                    </Button>
+                    <Button  Height="Auto" Margin="10,10,0,10" Width="66">
+                        <materialDesign:PackIcon Kind="Add" Width="AUTO" Height="AUTO"/>
+                    </Button>
+                    <Button  Height="Auto" Margin="10,10,0,10" Width="66">
+                        <materialDesign:PackIcon Kind="Select" Width="AUTO" Height="AUTO"/>
+                    </Button>
+                </WrapPanel>
+            </DockPanel>
+        </materialDesign:Card>
+        <Border
+            Margin="10"
+            BorderBrush="Black"
+            Grid.Row="1"
+            Grid.RowSpan="2" Background="White">
+            <DataGrid
+            BorderBrush="Black">
+            </DataGrid>
+        </Border>
+       
+        <DataGrid
+            Margin="10"
+            Grid.Row="1"
+            Grid.Column="1"
+            Grid.ColumnSpan="3"
+            Grid.RowSpan="2">
+        </DataGrid>
+        <DataGrid
+            Margin="10"
+            Grid.Row="1"
+            Grid.Column="5"
+            Grid.RowSpan ="2">
+            
+        </DataGrid>
+    </Grid>
+</Window>

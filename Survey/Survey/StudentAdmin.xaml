@@ -6,20 +6,144 @@
         xmlns:local="clr-namespace:Survey"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="StudentAdmin" Height="603" Width="1293.5">
+        Title="StudentAdmin" Height="603" Width="1370">
     <Grid >
         <Grid.RowDefinitions>
-            <RowDefinition  />
-            <RowDefinition  />
-            <RowDefinition  />
-            <RowDefinition Height="AUTO"  />
+            <RowDefinition Height="68*"  />
+
+            <RowDefinition Height="267*"  />
+            <RowDefinition Height="196*"  />
+            <RowDefinition Height="41*"  />
+            <RowDefinition Height="30*"/>
+
 
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition Width="AUTO" MinWidth="439" />
-        </Grid.ColumnDefinitions>
-        <GroupBox Grid.Column="1" Header="GroupBox" HorizontalAlignment="Left" Height="381" Grid.Row="1" VerticalAlignment="Top" Width="429" Grid.RowSpan="2"/>
+            <ColumnDefinition  />
+            <ColumnDefinition  />
+            <ColumnDefinition  />
 
+        </Grid.ColumnDefinitions>
+        <DockPanel 
+            Grid.ColumnSpan="3" 
+            Height="AUTO">
+            <DockPanel >
+                <materialDesign:Card Height="AUTO">
+                    <DockPanel HorizontalAlignment="Right">
+                        <WrapPanel  VerticalAlignment="Center" Margin="0,2,10,1" >
+                            <Button  Height="Auto" Margin="10,10,0,10" Width="66">
+                                <materialDesign:PackIcon Kind="Information" Width="AUTO" Height="AUTO"/>
+                            </Button>
+                            <Button  Height="Auto" Margin="10,10,0,10" Width="66">
+                                <materialDesign:PackIcon Kind="Cancel" Width="AUTO" Height="AUTO"/>
+                            </Button>
+                            <Button  Height="Auto" Margin="10,10,0,10" Width="66">
+                                <materialDesign:PackIcon Kind="Close" Width="AUTO" Height="AUTO"/>
+                            </Button>
+                            <Button  Height="Auto" Margin="10,10,0,10" Width="66">
+                                <materialDesign:PackIcon Kind="Add" Width="AUTO" Height="AUTO"/>
+                            </Button>
+                            <Button  Height="Auto" Margin="10,10,0,10" Width="66">
+                                <materialDesign:PackIcon Kind="Select" Width="AUTO" Height="AUTO"/>
+                            </Button>
+                        </WrapPanel>
+
+                    </DockPanel>
+
+                </materialDesign:Card>
+
+            </DockPanel>
+
+        </DockPanel>
+        <DockPanel 
+            Width="AUTO"
+            Height="AUTO"
+            Grid.Row="1" 
+            Grid.ColumnSpan="2" >
+            <GroupBox 
+                Height="AUTO"
+                Header="학생개인정모">
+                <Canvas>
+                    <TextBlock Text="학번:" Canvas.Left="18" Canvas.Top="16"></TextBlock>
+
+                    <TextBlock Text="______________" Canvas.Left="57" Canvas.Top="17"></TextBlock>
+                    <TextBlock Text="학번:" Canvas.Left="18" Canvas.Top="49"/>
+                    <TextBlock Text="______________" Canvas.Left="57" Canvas.Top="50"/>
+                    <TextBlock Text="학번:" Canvas.Left="18" Canvas.Top="80"/>
+                    <TextBlock Text="______________" Canvas.Left="57" Canvas.Top="81"/>
+                    <TextBlock Text="학번:" Canvas.Left="18" Canvas.Top="111"/>
+                    <TextBlock Text="______________" Canvas.Left="57" Canvas.Top="112"/>
+                    <TextBlock Text="학번:" Canvas.Left="170" Canvas.Top="15"/>
+                    <TextBlock Text="______________" Canvas.Left="209" Canvas.Top="16"/>
+                    <TextBlock Text="학번:" Canvas.Left="170" Canvas.Top="48"/>
+                    <TextBlock Text="______________" Canvas.Left="209" Canvas.Top="49"/>
+                    <TextBlock Text="학번:" Canvas.Left="170" Canvas.Top="79"/>
+                    <TextBlock Text="______________" Canvas.Left="209" Canvas.Top="80"/>
+                    <TextBlock Text="학번:" Canvas.Left="170" Canvas.Top="110"/>
+                    <TextBlock Text="______________" Canvas.Left="209" Canvas.Top="111"/>
+                    <TextBlock Text="학번:" Canvas.Left="338" Canvas.Top="19"/>
+                    <TextBlock Text="______________" Canvas.Left="377" Canvas.Top="20"/>
+                    <TextBlock Text="학번:" Canvas.Left="338" Canvas.Top="52"/>
+                    <TextBlock Text="______________" Canvas.Left="377" Canvas.Top="53"/>
+                    <TextBlock Text="학번:" Canvas.Left="338" Canvas.Top="83"/>
+                    <TextBlock Text="______________" Canvas.Left="377" Canvas.Top="84" RenderTransformOrigin="2.069,0.312"/>
+                    <TextBlock Text="학번:" Canvas.Left="338" Canvas.Top="114"/>
+                    <TextBlock Text="______________" Canvas.Left="377" Canvas.Top="115"/>
+                </Canvas>
+            </GroupBox>
+        </DockPanel>
+        <DockPanel
+           
+            Grid.Row="1"
+            Grid.Column="2" 
+            Grid.RowSpan="3"
+            Width="AUTO"
+            Height="AUTO">
+            <GroupBox
+                Header="학생 정보 입력 및 수정">
+                <Canvas>
+                    <Label Canvas.Left="10" Canvas.Top="11">학번</Label>
+                    <TextBox x:Name="StudentNumber" TextWrapping="Wrap" Text="학번" Width="251" Canvas.Left="47" Canvas.Top="10"/>
+                    <Label Canvas.Left="10" Canvas.Top="48">학번</Label>
+                    <TextBox x:Name="StudentNumber2" TextWrapping="Wrap" Text="학번" Width="251" Canvas.Left="47" Canvas.Top="48"/>
+                    <Label Canvas.Left="10" Canvas.Top="86">이름</Label>
+                    <TextBox TextWrapping="Wrap" Text="학번" Width="251" Canvas.Left="47" Canvas.Top="85" TextChanged="StudentNumber1_TextChanged"/>
+                    <Label Canvas.Left="10" Canvas.Top="126" Content="이름"/>
+                    <TextBox TextWrapping="Wrap" Text="학번" Width="251" Canvas.Left="47" Canvas.Top="125" TextChanged="StudentNumber1_TextChanged"/>
+                    <Label Canvas.Left="10" Canvas.Top="165" Content="이름"/>
+                    <TextBox TextWrapping="Wrap" Text="학번" Width="379" Canvas.Left="47" Canvas.Top="164" TextChanged="StudentNumber1_TextChanged"/>
+                    <Label Canvas.Left="10" Canvas.Top="205" Content="이름"/>
+                    <TextBox TextWrapping="Wrap" Text="학번" Width="379" Canvas.Left="47" Canvas.Top="204" TextChanged="StudentNumber1_TextChanged"/>
+                    <Label Canvas.Left="10" Canvas.Top="235" Content="이름"/>
+                    <TextBox TextWrapping="Wrap" Text="학번" Width="379" Canvas.Left="47" Canvas.Top="234" TextChanged="StudentNumber1_TextChanged"/>
+                    <Label Canvas.Left="10" Canvas.Top="276" Content="이름"/>
+                    <TextBox TextWrapping="Wrap" Text="학번" Width="379" Canvas.Left="47" Canvas.Top="275" TextChanged="StudentNumber1_TextChanged"/>
+                    <Image  Width="123" Height="125" Canvas.Left="303" Canvas.Top="25" RenderTransformOrigin="1,1" OpacityMask="#FFA4684C"/>
+                </Canvas>
+            </GroupBox>
+
+        </DockPanel>
+        <DockPanel
+            Grid.Row="2"
+            Grid.ColumnSpan="2"
+            Height="AUTO"
+            Width="AUTO"
+            Grid.RowSpan="2" >
+            <DataGrid SelectionChanged="DataGrid_SelectionChanged_1">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="1234"/>
+                    <DataGridTextColumn Header="1234"/>
+                    <DataGridTextColumn Header="1234"/>
+                    <DataGridTextColumn Header="1234"/>
+                </DataGrid.Columns>
+
+            </DataGrid>
+        </DockPanel>
+        <DockPanel
+            Grid.Row="4"
+            Grid.ColumnSpan="3" 
+            >
+
+        </DockPanel>
     </Grid>
 </Window>

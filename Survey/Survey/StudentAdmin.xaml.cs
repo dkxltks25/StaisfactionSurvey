@@ -23,5 +23,39 @@ namespace Survey
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void DataGrid_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void Button1_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void StudentNumber1_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

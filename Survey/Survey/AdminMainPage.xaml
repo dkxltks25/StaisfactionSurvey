@@ -21,20 +21,12 @@
                 <TreeViewItem Header="학생">
                     <TreeViewItem   Header="학생관리" />
                 </TreeViewItem>
-                <TreeViewItem  Header="부서관리" Background="{x:Null}">
-                    <TreeViewItem  Header="부서지 조회" Background="{x:Null}" />
-                    <TreeViewItem Header="부서지 등록" />
-                    <TreeViewItem Header="부서지 삭제" />
-                    <TreeViewItem Header="부서지 수정" />
+                <TreeViewItem  Header="부서" Background="{x:Null}">
+                    <TreeViewItem  Header="부서 관리" Background="{x:Null}" />
                 </TreeViewItem>
-                <TreeViewItem Header="설문지관리" Background="{x:Null}">
-                    <TreeViewItem Header="설문지관리" Background="{x:Null}" />
-                    <TreeViewItem Header="설문지관리" />
-                    <TreeViewItem Header="설문지관리" />
-                    
-                    <TreeViewItem Header="설문지관리" />
-                    <TreeViewItem Header="설문지관리" />
-                    <TreeViewItem Header="설문지관리" />
+                <TreeViewItem Header="설문지" Background="{x:Null}">
+                    <TreeViewItem Header="설문지조회" Background="{x:Null}" />
+                    <TreeViewItem Header="설문지생성" />
 
                 </TreeViewItem>
 

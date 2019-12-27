@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Survey"
         mc:Ignorable="d"
          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="MainWindow" Height="269" Width="605" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="MainWindow" Height="269" Width="605" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="White">
     <Grid Margin="0,0,2,0">
         <Label Content="아이디" HorizontalAlignment="Right" Margin="0,57,313,0" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="328,57,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="235" RenderTransformOrigin="0.438,0.478"/>
