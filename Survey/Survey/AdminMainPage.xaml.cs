@@ -53,9 +53,17 @@ namespace Survey
             {
                 
             }
+           else if(HeaderValue == "관리자 관리")
+            {
+                AdminManagementPage admp = new AdminManagementPage();
+                admp.Show();
+            }
         }
 
-      
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
  }
 

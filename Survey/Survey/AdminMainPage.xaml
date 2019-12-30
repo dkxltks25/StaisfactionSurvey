@@ -7,65 +7,38 @@
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Title="AdminMainPage" Height="552" Width="870.909" WindowStartupLocation="CenterScreen">
-    <DockPanel LastChildFill="false" >
-        <!--트리뷰-->
-        <WrapPanel x:Name="TreeView" 
-            DockPanel.Dock="Left"
-            HorizontalAlignment="Center"
-            Width="220" Margin="0,66,0,35" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" 
-           >
-            <TreeView Width="220" SelectedItemChanged="TreeView_SelectedItemChanged">
-                <TreeViewItem Header="시스템" >
-                    <TreeViewItem Header="시스템관리" />
-                </TreeViewItem>
-                <TreeViewItem Header="학생">
-                    <TreeViewItem   Header="학생관리" />
-                </TreeViewItem>
-                <TreeViewItem  Header="부서" Background="{x:Null}">
-                    <TreeViewItem  Header="부서 관리" Background="{x:Null}" />
-                </TreeViewItem>
-                <TreeViewItem Header="설문지" Background="{x:Null}">
-                    <TreeViewItem Header="설문지조회" Background="{x:Null}" />
-                    <TreeViewItem Header="설문지생성" />
-
-                </TreeViewItem>
-
-            </TreeView>
-        </WrapPanel>
-        <!--메인 이미지 및 공지사항-->
-        <WrapPanel 
-            DockPanel.Dock="Left"
-            HorizontalAlignment="Center"
-            Width="646" Margin="0,66,0,35" 
-           >
-            <DataGrid Height="419" Width="645" />
-        </WrapPanel>
-        <!--헤더-->
-        <DockPanel 
-            DockPanel.Dock="Top"  
-            LastChildFill="False" 
-            VerticalAlignment="Top"
-            Height="60" Margin="-863,0,0,0"
-            >
-            <materialDesign:Card DockPanel.Dock="Top" Height="60">
-                <Grid>
-                    <materialDesign:PackIcon Kind="Information" Margin="741,16,0,0" Height="34" Width="34" RenderTransformOrigin="-0.083,0.778" Foreground="#FF9840AC"/>
-                    <materialDesign:PackIcon Kind="Information" Margin="819,16,0,0" Height="34" Width="34" RenderTransformOrigin="-0.083,0.778" Foreground="#FF9840AC"/>
-                    <materialDesign:PackIcon Kind="Information" Margin="780,16,0,0" Height="34" Width="34" RenderTransformOrigin="-0.083,0.778" Foreground="#FF9840AC"/>
-
-                </Grid>
-            </materialDesign:Card>
-           
-        </DockPanel>
-        <DockPanel 
-            DockPanel.Dock="Bottom"  
-            LastChildFill="False" 
-            VerticalAlignment="Bottom"
-            Height="30" Margin="-863,0,0,0"
-            >
-            <materialDesign:Card DockPanel.Dock="Bottom" Height="60" materialDesign:ShadowAssist.ShadowEdges="Top">
-            </materialDesign:Card>
-        </DockPanel>
-    </DockPanel>
-
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.3*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.2*" />
+            <RowDefinition />
+            <RowDefinition Height="0.2*"/>
+        </Grid.RowDefinitions>
+        <materialDesign:Card Grid.ColumnSpan="2">
+            <Canvas>
+                
+            </Canvas>
+        </materialDesign:Card>
+        <TreeView Grid.Column="0" Grid.Row="1" SelectedItemChanged="TreeView_SelectedItemChanged">
+            <TreeViewItem Header="시스템" >
+                <TreeViewItem Header="시스템관리" />
+            </TreeViewItem>
+            <TreeViewItem Header="학생">
+                <TreeViewItem   Header="학생관리" />
+            </TreeViewItem>
+            <TreeViewItem  Header="부서" Background="{x:Null}">
+                <TreeViewItem  Header="부서 관리" Background="{x:Null}" />
+            </TreeViewItem>
+            <TreeViewItem Header="설문지" Background="{x:Null}">
+                <TreeViewItem Header="설문지조회" Background="{x:Null}" />
+                <TreeViewItem Header="설문지생성" />
+            </TreeViewItem>
+            <TreeViewItem Header="관리자">
+                <TreeViewItem Header="관리자 관리"/>
+            </TreeViewItem>
+        </TreeView>
+    </Grid>
 </Window>

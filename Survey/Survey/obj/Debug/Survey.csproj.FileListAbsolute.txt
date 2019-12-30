@@ -56,3 +56,10 @@ C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\SelectSurveyPag
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\SelectSurveyPage.baml
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\CreateSurveyPage.g.cs
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\CreateSurveyPage.baml
+C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\AdminManagementPage.g.cs
+C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\AdminManagementPage.baml
+C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\bin\Debug\MySql.Data.dll
+C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\bin\Debug\Google.Protobuf.dll
+C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\bin\Debug\BouncyCastle.Crypto.dll
+C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\bin\Debug\Renci.SshNet.dll
+C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\bin\Debug\MySql.Data.xml
