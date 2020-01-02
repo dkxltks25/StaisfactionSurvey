@@ -22,6 +22,7 @@ namespace Survey
         public AdminManagementPage()
         {
             InitializeComponent();
+            this.DataContext = new ViewModel.AdminViewModel();
             DefaultButtonState();
         }
 
@@ -124,6 +125,11 @@ namespace Survey
         }
 
         private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void DG1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
