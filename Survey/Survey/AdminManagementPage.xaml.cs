@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Sql = Survey.ManageSql;
+using Survey.ViewModel;
+using static Survey.ViewModel.AdminViewModel;
+using System.Collections.ObjectModel;
 namespace Survey
 {
     /// <summary>
@@ -19,10 +22,13 @@ namespace Survey
     /// </summary>
     public partial class AdminManagementPage : Window
     {
+        public AdminViewModel Vm = new ViewModel.AdminViewModel();
+        public ObservableCollection<AdminList> list;
         public AdminManagementPage()
         {
             InitializeComponent();
-            this.DataContext = new ViewModel.AdminViewModel();
+
+            this.DataContext = Vm;
             DefaultButtonState();
         }
 
@@ -96,7 +102,7 @@ namespace Survey
         //Add 버튼
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            DataChangeButtonState();
+            //DataChangeButtonState();
             Sql sql = new Sql();
             Console.WriteLine(sql.SHA512("dkxltks25"));
 
@@ -132,6 +138,35 @@ namespace Survey
         private void DG1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void DG1_TouchEnter(object sender, TouchEventArgs e)
+        {
+        }
+
+        private void DG1_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            DataGrid dg = sender as DataGrid;
+            Console.WriteLine(dg.Items.Count);
+            try
+            {
+                AdminList row = (AdminList)dg.SelectedItems[0];
+                Vm.AdminId = row.AdminId;
+                Vm.AdminName = row.AdminName;
+                Vm.AdminPassword = row.AdminPassword;
+                Vm.AdminSGrade = row.AdminSGrade;
+            }
+            catch (Exception e1)
+            {
+            }
+            
+            
+
+
+        }
+
+        private void DG1_ColumnReordering(object sender, DataGridColumnReorderingEventArgs e)
+        {
         }
     }
 }

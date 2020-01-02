@@ -4,26 +4,32 @@ using System.Windows.Input;
 using Survey;
 using System.Windows;
 using System.Collections.ObjectModel;
+using System.Windows.Data;
+using System.Globalization;
 
 namespace Survey.ViewModel
 {
     public class AdminViewModel : INotifyPropertyChanged
-    {
+        {
         #region 생성자
         public AdminViewModel()
         {
             //Add커맨드 할당
             AddCommand = new Command.Command(ExecuteAdd, CanExecuteAdd);
         }
-        #endregion
+        #endregion 데이터 그리드 뷰 정보
         public class AdminList
         {
             public string AdminCode{ get; set; }
-            public string AdminId{ get; set; }
+            public string AdminId { get; set; }
             public string AdminPassword{ get; set; }
             public string AdminName{ get; set; }
-            public string AdminGrade{ get; set; }
+            public string AdminSGrade{ get; set; }
             public string AdminCreateAt { get; set; }
+            public int GetAllSize()
+            {
+                return AdminCode.Length + AdminId.Length + AdminPassword.Length + AdminName.Length + AdminSGrade.Length + AdminCreateAt.Length;
+            }
         }
 
         #region ICommand 제어
@@ -31,31 +37,32 @@ namespace Survey.ViewModel
         //Add Command
         private void ExecuteAdd(object obj)
         {
+            //리스트 정보
             AdminList adl = new AdminList();
             Console.WriteLine(adl);
             adl.AdminCode = "A";
             adl.AdminId =  AdminId;
             adl.AdminPassword = AdminPassword;
             adl.AdminName = AdminName;
-            adl.AdminGrade = AdminGrade;
+            adl.AdminSGrade = AdminSGrade;
+
             AdminLists.Add(adl);
-            AdminLists = AdminLists;
-            Console.WriteLine(adl);
-
-            /*
-            if (!string.IsNullOrEmpty(AdminId) || !string.IsNullOrEmpty(AdminPassword) || !string.IsNullOrEmpty(AdminMail) || !string.IsNullOrEmpty(AdminGrade))
-            {
-               
-            }*/
-
-            Console.WriteLine(AdminId.Length);
-            Console.WriteLine(AdminPassword);
-            Console.WriteLine(AdminGrade);
+            AddEnabled = false;
             
         }
         private bool CanExecuteAdd(object args)
         {
             return true;
+        }
+        private Boolean _AddEnabled =false;
+        public Boolean AddEnabled
+        {
+            get { return _AddEnabled; }
+            set
+            {
+                _AddEnabled = value;
+                NotifyPropertyChanged("AddEnabled");
+            }
         }
         #endregion
 
@@ -65,6 +72,11 @@ namespace Survey.ViewModel
         {
             get { return _AdminLists; }
             set { _AdminLists = value; NotifyPropertyChanged("AdminLists"); }
+        }
+        public void RemoveList (int Position)
+        {
+            Console.WriteLine(AdminLists.Count);
+            AdminLists.RemoveAt(Position);
         }
         #endregion
 
@@ -117,18 +129,18 @@ namespace Survey.ViewModel
             }
         }
 
-        private string Grade;
-        public string AdminGrade
+       
+        private string SGrade;
+        public string AdminSGrade
         {
             get
             {
-
-                return Grade;
+                return SGrade;
             }
             set
             {
-                Grade = value;
-                NotifyPropertyChanged("AdminGrade");
+                SGrade = value;
+                NotifyPropertyChanged("AdminSGrade");
 
             }
         }
@@ -144,5 +156,6 @@ namespace Survey.ViewModel
                 PropertyChanged(this, new PropertyChangedEventArgs(PropertyName));
             }
         }
+       
     }
 }
