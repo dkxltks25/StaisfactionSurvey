@@ -9,9 +9,10 @@
         Title="AdminManagementPage" Height="495.185" Width="989.959">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="327*"/>
+            <ColumnDefinition Width="124*"/>
+            <ColumnDefinition Width="204*"/>
+            <ColumnDefinition Width="327*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition  Height="0.5*"/>
@@ -19,14 +20,14 @@
             <RowDefinition Height="2*"/>
             <RowDefinition Height="0.5*"/>
         </Grid.RowDefinitions>
-        <materialDesign:Card Grid.ColumnSpan="3">
+        <materialDesign:Card Grid.ColumnSpan="4">
             <DockPanel HorizontalAlignment="Right">
                 <WrapPanel  VerticalAlignment="Center" Margin="0,2,10,1" >
 
                     <Button x:Name="InfoButton"  Height="Auto" Margin="10,10,0,10" Width="66" Click="InfoButton_Click" >
                         <materialDesign:PackIcon Kind="Information" Width="AUTO" Height="AUTO"/>
                     </Button>
-                    <Button x:Name="AddButton" Command="{Binding AddCommand}" Height="Auto" Margin="10,10,0,10" Width="66" Click="AddButton_Click" IsEnabled="{Binding Path=AddEnabled}">
+                    <Button x:Name="AddButton"  Height="Auto" Margin="10,10,0,10" Width="66" Click="AddButton_Click" IsEnabled="{Binding Path=AddEnabled}">
                         <materialDesign:PackIcon Kind="add" Width="AUTO" Height="AUTO"/>
                     </Button>
                     <Button x:Name="UpdateButton" Height="Auto" Margin="10,10,0,10" Width="66" Click="UpdateButton_Click">
@@ -44,44 +45,26 @@
                 </WrapPanel>
             </DockPanel>
         </materialDesign:Card>
-
         <GroupBox 
             Margin="10 10 10 10 "
-            Grid.Row="1" 
-            Grid.ColumnSpan="2"
-            Header="관리자 정보">
-            <Canvas>
-                <Label x:Name="label" Content="관리자아이디:" Canvas.Left="22" Canvas.Top="10"  />
-                <TextBlock Text="{Binding AdminId}" Canvas.Left="95" Canvas.Top="14"/>
-                <Label x:Name="label1" Content="관리자이름:" Canvas.Left="22" Canvas.Top="50"  />
-                <TextBlock Text="{Binding AdminName}" Canvas.Left="95" Canvas.Top="54"/>
-                <Label x:Name="label4" Content="관리자비밀번호:" Canvas.Left="22" Canvas.Top="80"  />
-                <TextBlock Text="{Binding AdminPassword}" Canvas.Left="122" Canvas.Top="88"/>
-                <Label x:Name="label2" Content="관리자권한:" Canvas.Left="233" Canvas.Top="10"  />
-                <TextBlock Text="{Binding AdminSGrade}" Canvas.Left="306" Canvas.Top="14"/>
-                <Label x:Name="label3" Content="관리자생성일:" Canvas.Left="233" Canvas.Top="50"  />
-            </Canvas>
-        </GroupBox>
-        <GroupBox 
-            Margin="10 10 10 10 "
-            Grid.Column="2"
+            Grid.Column="3"
             Grid.Row="1" 
             Grid.RowSpan="2"
-            Header="관리자 입력 및 수정" >
-            <Canvas>
+            Header="관리자 입력 및 수정" 
+            >
+            <Canvas  x:Name="AdminInfo">
                 <Label Canvas.Top="18" >관리자 아이디</Label>
-                <TextBox x:Name="Id"  TextWrapping="Wrap" Text="{Binding AdminId, Mode=TwoWay}" Width="169" Canvas.Left="98" Canvas.Top="18" TextChanged="StudentNumber_TextChanged"/>
-                <Label Canvas.Left="28" Canvas.Top="48">비밀번호</Label>
+                <TextBox x:Name="Id"  TextWrapping="Wrap" Text="{Binding AdminId, Mode=TwoWay}" Width="169" Canvas.Left="98" Canvas.Top="18" />
+                <Label Canvas.Left="28" Canvas.Top="48">비밀번호</Label>    
                 <TextBox x:Name="StudentNumber2" TextWrapping="Wrap" Text="{Binding AdminPassword, Mode=TwoWay}" Width="169" Canvas.Left="98" Canvas.Top="48"/>
                 <Label Canvas.Left="16" Canvas.Top="88" >관리자이름</Label>
-                <TextBox TextWrapping="Wrap" Text="{Binding AdminName, Mode=TwoWay}" Width="169" Canvas.Left="98" Canvas.Top="87" TextChanged="TextBox_TextChanged_1" />
+                <TextBox TextWrapping="Wrap" Text="{Binding AdminName, Mode=TwoWay}" Width="169" Canvas.Left="98" Canvas.Top="87"  />
                 <Label Canvas.Left="16" Canvas.Top="129" >관리자등급</Label>
                 <ComboBox 
                     SelectedItem="{Binding Path=AdminSGrade}"
                     Canvas.Left="98" 
                     Canvas.Top="129" 
-                    Width="35" 
-                    SelectionChanged="ComboBox_SelectionChanged" >
+                    Width="35">
                     <ComboBoxItem Content="M" HorizontalAlignment="Left" Width="94" Selector.IsSelected="True" />
                     <ComboBoxItem Content="N" HorizontalAlignment="Left" Width="94"/>
                 </ComboBox>
@@ -91,31 +74,30 @@
             BorderBrush="Aqua"
             BorderThickness="2"
             Grid.Column="0"
-            Grid.Row="2"
-            Grid.ColumnSpan="2"
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            Grid.ColumnSpan="3"
             Margin="10">
             <DataGrid Name="DG1" 
-                      CanUserAddRows="True" 
+                      CanUserAddRows="False" 
                       CanUserResizeColumns="False" 
                       CanUserSortColumns="True" 
-                      EnableRowVirtualization="True"
+                      EnableRowVirtualization="False"
                       AutoGenerateColumns="False" 
                       SelectionChanged="DG1_SelectionChanged"
-                      ItemsSource="{Binding Path=AdminLists}"
-                      CanUserDeleteRows="True"
-                      TouchEnter="DG1_TouchEnter"
-                      SelectedCellsChanged="DG1_SelectedCellsChanged"
-                      ColumnReordering="DG1_ColumnReordering"
+                      CanUserDeleteRows="True"      
                       >
+                
                 <DataGrid.Columns>
                     <materialDesign:DataGridTextColumn Binding="{Binding AdminCode}" Header="입력구분" CanUserReorder="True" IsReadOnly="True"   />
                     <DataGridTextColumn  Header="관리자아이디" CanUserReorder="True"
-                                        Binding="{Binding AdminId}" />
+                                        Binding="{Binding AdminId, Mode=TwoWay}" />
                     <DataGridTextColumn IsReadOnly="False" Header="비밀번호" Binding="{Binding AdminPassword}"  />
                     <DataGridTextColumn IsReadOnly="False" Header="관리자이름" Binding="{Binding AdminName}" />
                     <DataGridTextColumn IsReadOnly="False" Header="관리자 등급" Binding="{Binding AdminSGrade}" />
-                    <DataGridTextColumn IsReadOnly="False" Header="관리자 생성일"  Binding="{Binding AdminCreateAt}"/>
-
+                    <DataGridTextColumn IsReadOnly="True" Header="관리자 생성일"  Binding="{Binding AdminCreateAt}"/>
+                    <DataGridComboBoxColumn Header="관리자 등급">
+                    </DataGridComboBoxColumn>
                 </DataGrid.Columns>
 
             </DataGrid>
