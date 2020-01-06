@@ -6,6 +6,8 @@ using System.Windows;
 using System.Collections.ObjectModel;
 using System.Windows.Data;
 using System.Globalization;
+using System.Collections.Generic;
+using System.Windows.Controls;
 
 namespace Survey.ViewModel
 {
@@ -32,7 +34,7 @@ namespace Survey.ViewModel
             set
             {
                 Code = value;
-                NotifyPropertyChanged(Code);
+                NotifyPropertyChanged("AdminCode");
             }
         }
         private string Id;
@@ -98,6 +100,19 @@ namespace Survey.ViewModel
 
             }
         }
+        private string Division;
+        public string AdminDivision
+        {
+            get
+            {
+                return Division;
+            }
+            set
+            {
+                Division = value;
+                NotifyPropertyChanged("AdminDivision");
+            }
+        }
         #endregion
         public event PropertyChangedEventHandler PropertyChanged;
         //이벤트 할당
@@ -142,6 +157,11 @@ namespace Survey.ViewModel
                 _AddEnabled = value;
                 NotifyPropertyChanged("AddEnabled");
             }
+        }
+
+        public static implicit operator List<object>(AdminViewModel v)
+        {
+            throw new NotImplementedException();
         }
         #endregion
 

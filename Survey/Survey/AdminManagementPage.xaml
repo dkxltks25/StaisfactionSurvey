@@ -50,23 +50,24 @@
             Grid.Column="3"
             Grid.Row="1" 
             Grid.RowSpan="2"
-            Header="관리자 입력 및 수정" 
+            Header="관리자 입력 및 수정"
             >
             <Canvas  x:Name="AdminInfo">
                 <Label Canvas.Top="18" >관리자 아이디</Label>
-                <TextBox x:Name="Id"  TextWrapping="Wrap" Text="{Binding AdminId, Mode=TwoWay}" Width="169" Canvas.Left="98" Canvas.Top="18" />
+                <TextBox x:Name="adminId"  TextWrapping="Wrap" Text="{Binding AdminId, Mode=TwoWay}" Width="169" Canvas.Left="98" Canvas.Top="18" />
                 <Label Canvas.Left="28" Canvas.Top="48">비밀번호</Label>    
-                <TextBox x:Name="StudentNumber2" TextWrapping="Wrap" Text="{Binding AdminPassword, Mode=TwoWay}" Width="169" Canvas.Left="98" Canvas.Top="48"/>
+                <TextBox x:Name="adminPassword" TextWrapping="Wrap" Text="{Binding AdminPassword, Mode=TwoWay}" Width="169" Canvas.Left="98" Canvas.Top="48"/>
                 <Label Canvas.Left="16" Canvas.Top="88" >관리자이름</Label>
-                <TextBox TextWrapping="Wrap" Text="{Binding AdminName, Mode=TwoWay}" Width="169" Canvas.Left="98" Canvas.Top="87"  />
+                <TextBox x:Name ="adminName" TextWrapping="Wrap" Text="{Binding AdminName, Mode=TwoWay}" Width="169" Canvas.Left="98" Canvas.Top="87"  />
                 <Label Canvas.Left="16" Canvas.Top="129" >관리자등급</Label>
                 <ComboBox 
-                    SelectedItem="{Binding Path=AdminSGrade}"
+                    x:Name="adminGrade"
+                    Text="{Binding AdminSGrade}"
                     Canvas.Left="98" 
                     Canvas.Top="129" 
                     Width="35">
-                    <ComboBoxItem Content="M" HorizontalAlignment="Left" Width="94" Selector.IsSelected="True" />
-                    <ComboBoxItem Content="N" HorizontalAlignment="Left" Width="94"/>
+                    <ComboBoxItem>M</ComboBoxItem>
+                    <ComboBoxItem>N</ComboBoxItem>
                 </ComboBox>
             </Canvas>
         </GroupBox>
