@@ -82,24 +82,6 @@
             Grid.Row="2"
             Grid.ColumnSpan="2"
             Margin="10">
-            <ListView x:Name="listView1" HorizontalAlignment="Left" Height="338"  >
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Width="80" Header="선 택">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button Content="선 택" Height="25" Width="60" HorizontalAlignment="Center" Click="Button_Click"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Width="80" Header="강의코드" DisplayMemberBinding="{Binding Memo}"/>
-                        <GridViewColumn Width="100" Header="강의명" DisplayMemberBinding="{Binding Subject}"/>
-                        <GridViewColumn Width="80" Header="강의실" DisplayMemberBinding="{Binding Class}"/>
-                        <GridViewColumn Width="80" Header="교 수" DisplayMemberBinding="{Binding Professor}"/>
-                        <GridViewColumn Width="100" Header="강의시간" DisplayMemberBinding="{Binding ScheDule}"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
         </Border>
     </Grid>
 

@@ -128,6 +128,13 @@ namespace Survey
         //***************************************************
         private void InfoButton_Click(object sender, RoutedEventArgs e)
         {
+
+        }
+        //***************************************************
+        //Select 버튼
+        //***************************************************
+        private void SelectButton_Click(object sender, RoutedEventArgs e)
+        {
             sql.SelectAdmin(myViewModel);
         }
         //***************************************************
@@ -178,8 +185,7 @@ namespace Survey
             }
             else if (myViewModel[DG1.SelectedIndex].AdminCode == "D")
             {
-                Console.WriteLine("_-------------");
-                Console.WriteLine(myViewModel[DG1.SelectedIndex].AdminDivision);
+                 myViewModel[DG1.SelectedIndex].AdminCode = myViewModel[DG1.SelectedIndex].AdminDivision;
             }
             else
             {
@@ -297,10 +303,7 @@ namespace Survey
                 AdminInfo.IsEnabled = false;
             }catch(Exception e1)
             {
-
             }
-
-
         }
 
      

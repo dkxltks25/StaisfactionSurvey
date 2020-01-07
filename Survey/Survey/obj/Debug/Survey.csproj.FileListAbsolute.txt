@@ -50,8 +50,6 @@ C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Survey.csproj.C
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Survey.csproj.CopyComplete
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Survey.exe
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Survey.pdb
-C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\DepartmentAdmin.g.cs
-C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\DepartmentAdmin.baml
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\SelectSurveyPage.g.cs
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\SelectSurveyPage.baml
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\CreateSurveyPage.g.cs
@@ -63,3 +61,7 @@ C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\bin\Debug\Google.Protobuf
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\bin\Debug\BouncyCastle.Crypto.dll
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\bin\Debug\Renci.SshNet.dll
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\bin\Debug\MySql.Data.xml
+C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Dept\DepartmentAdd.g.cs
+C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Dept\DepartmentAdmin.g.cs
+C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Dept\DepartmentAdd.baml
+C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Dept\DepartmentAdmin.baml

@@ -65,7 +65,6 @@
                 Header="학생개인정모">
                 <Canvas>
                     <TextBlock Text="학번:" Canvas.Left="18" Canvas.Top="16"></TextBlock>
-
                     <TextBlock Text="______________" Canvas.Left="57" Canvas.Top="17"></TextBlock>
                     <TextBlock Text="학번:" Canvas.Left="18" Canvas.Top="49"/>
                     <TextBlock Text="______________" Canvas.Left="57" Canvas.Top="50"/>
@@ -145,5 +144,6 @@
             >
 
         </DockPanel>
+        
     </Grid>
 </Window>

@@ -23,10 +23,14 @@
         <materialDesign:Card Grid.ColumnSpan="4">
             <DockPanel HorizontalAlignment="Right">
                 <WrapPanel  VerticalAlignment="Center" Margin="0,2,10,1" >
-
+                     
                     <Button x:Name="InfoButton"  Height="Auto" Margin="10,10,0,10" Width="66" Click="InfoButton_Click" >
                         <materialDesign:PackIcon Kind="Information" Width="AUTO" Height="AUTO"/>
                     </Button>
+                    <Button x:Name="SelectButton"  Height="Auto" Margin="10,10,0,10" Width="66" Click="SelectButton_Click" >
+                        <materialDesign:PackIcon Kind="Select" Width="AUTO" Height="AUTO"/>
+                    </Button>
+
                     <Button x:Name="AddButton"  Height="Auto" Margin="10,10,0,10" Width="66" Click="AddButton_Click" IsEnabled="{Binding Path=AddEnabled}">
                         <materialDesign:PackIcon Kind="add" Width="AUTO" Height="AUTO"/>
                     </Button>
@@ -54,9 +58,9 @@
             >
             <Canvas  x:Name="AdminInfo">
                 <Label Canvas.Top="18" >관리자 아이디</Label>
-                <TextBox x:Name="adminId"  TextWrapping="Wrap" Text="{Binding AdminId, Mode=TwoWay}" Width="169" Canvas.Left="98" Canvas.Top="18" />
+                <TextBox x:Name="adminId"  TextWrapping="Wrap" Text="{Binding AdminId, Mode=TwoWay}" Width="169" Canvas.Left="98" Canvas.Top="18"  />
                 <Label Canvas.Left="28" Canvas.Top="48">비밀번호</Label>    
-                <TextBox x:Name="adminPassword" TextWrapping="Wrap" Text="{Binding AdminPassword, Mode=TwoWay}" Width="169" Canvas.Left="98" Canvas.Top="48"/>
+                <TextBox x:Name="adminPassword" TextWrapping="WrapWithOverflow" Text="{Binding AdminPassword, Mode=TwoWay}" Width="169" Canvas.Left="98" Canvas.Top="48" UndoLimit="12"/>
                 <Label Canvas.Left="16" Canvas.Top="88" >관리자이름</Label>
                 <TextBox x:Name ="adminName" TextWrapping="Wrap" Text="{Binding AdminName, Mode=TwoWay}" Width="169" Canvas.Left="98" Canvas.Top="87"  />
                 <Label Canvas.Left="16" Canvas.Top="129" >관리자등급</Label>
@@ -97,8 +101,6 @@
                     <DataGridTextColumn IsReadOnly="False" Header="관리자이름" Binding="{Binding AdminName}" />
                     <DataGridTextColumn IsReadOnly="False" Header="관리자 등급" Binding="{Binding AdminSGrade}" />
                     <DataGridTextColumn IsReadOnly="True" Header="관리자 생성일"  Binding="{Binding AdminCreateAt}"/>
-                    <DataGridComboBoxColumn Header="관리자 등급">
-                    </DataGridComboBoxColumn>
                 </DataGrid.Columns>
 
             </DataGrid>

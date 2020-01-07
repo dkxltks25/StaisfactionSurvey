@@ -113,6 +113,18 @@ namespace Survey.ViewModel
                 NotifyPropertyChanged("AdminDivision");
             }
         }
+        private DateTime createAt;
+        public DateTime AdminCreateAt{
+            get
+            {
+                return createAt;
+            }
+            set
+            {
+                createAt = value;
+                NotifyPropertyChanged("AdminCreateAt");
+            }
+        }
         #endregion
         public event PropertyChangedEventHandler PropertyChanged;
         //이벤트 할당

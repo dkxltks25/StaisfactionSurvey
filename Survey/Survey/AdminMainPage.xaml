@@ -29,8 +29,9 @@
             <TreeViewItem Header="학생">
                 <TreeViewItem   Header="학생관리" />
             </TreeViewItem>
-            <TreeViewItem  Header="부서" Background="{x:Null}">
+            <TreeViewItem Header="부서" Background="{x:Null}">
                 <TreeViewItem  Header="부서 관리" Background="{x:Null}" />
+                <TreeViewItem Header="부서 등록"/>
             </TreeViewItem>
             <TreeViewItem Header="설문지" Background="{x:Null}">
                 <TreeViewItem Header="설문지조회" Background="{x:Null}" />
