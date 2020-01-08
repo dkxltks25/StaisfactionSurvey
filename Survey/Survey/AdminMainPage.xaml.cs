@@ -34,8 +34,8 @@ namespace Survey
            String HeaderValue = data.Header.ToString();
            if(HeaderValue == "학생관리")
             {
-                StudentAdmin studentadmin = new StudentAdmin();
-                studentadmin.Show();
+               // StudentAdmin studentadmin = new StudentAdmin();
+                //studentadmin.Show();
             }
            else if(HeaderValue == "부서 관리")
             {

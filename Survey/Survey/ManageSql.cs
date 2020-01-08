@@ -326,6 +326,40 @@ namespace Survey
                 conn.Close();
             }
         }
+        public List<string> SelectDeptNameList()
+        {
+            string sql = "SELECT DEPT_NAME FROM SASU_DEPT;";
+            List<string> TempList = new List<string>();
+            try
+            {
+                connectionOpen();
+                cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    TempList.Add(reader["DEPT_NAME"].ToString());
+                }
+            }catch(Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                cmd = null;
+                conn.Close();
+            }
+            return TempList;
+        }
         #endregion
+
+        #region 학생
+        //***************************************************
+        //학생 생성 result 1 이상 성공 0 실패 
+        //*************************************************** 
+        public void CreateStudent()
+        {
+
+        }
+        #endregion 
     }
 }

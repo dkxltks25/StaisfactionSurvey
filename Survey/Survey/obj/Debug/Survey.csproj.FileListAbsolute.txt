@@ -35,14 +35,12 @@ C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\bin\Debug\MaterialDesignT
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Survey.csprojAssemblyReference.cache
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\AdminMainPage.g.cs
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\MainWindow.g.cs
-C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\StudentAdmin.g.cs
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\App.g.cs
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Survey_MarkupCompile.cache
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Survey_MarkupCompile.lref
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\App.baml
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\AdminMainPage.baml
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\MainWindow.baml
-C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\StudentAdmin.baml
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Survey.g.resources
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Survey.Properties.Resources.resources
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Survey.csproj.GenerateResource.cache
@@ -65,3 +63,5 @@ C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Dept\Department
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Dept\DepartmentAdmin.g.cs
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Dept\DepartmentAdd.baml
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Dept\DepartmentAdmin.baml
+C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Student\StudentAdmin.g.cs
+C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Student\StudentAdmin.baml
