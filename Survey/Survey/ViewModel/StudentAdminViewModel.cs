@@ -53,6 +53,7 @@ namespace Survey.ViewModel
             {
                 studentResNumber1 = value;
                 NotifyPropertyChanged("StudentResNumber1");
+                NotifyPropertyChanged("StudentPassword");
             }
         }
         //뒷자리
@@ -69,7 +70,6 @@ namespace Survey.ViewModel
                 NotifyPropertyChanged("StudentResNumber2");
             }
         }
-        private string studentResNumber;
         public string StudentResNumber
         {
             get { return StudentResNumber1 + StudentResNumber2; }

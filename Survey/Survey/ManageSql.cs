@@ -63,8 +63,13 @@ namespace Survey
                 return hashedInputStringBuilder.ToString();
             }
         }
-
-
+        /// <summary>
+        /// SHA256 암호화 방식 주민등록번호 암호화
+        /// </summary>
+      
+        /// <summary>
+        /// SHA256 복호화 방식 주민등록번호 복호화
+        /// </summary>
         #region 관리자
         //***************************************************
         //관리자 테이블 생성
@@ -356,9 +361,154 @@ namespace Survey
         //***************************************************
         //학생 생성 result 1 이상 성공 0 실패 
         //*************************************************** 
-        public void CreateStudent()
+        public int CreateStudent(StudentAdminViewModel Data,string Admin) 
         {
+            string sql = "insert into SASU_STD values" +
+                "(@num,@resno,@name,@sex,@dept,@phone,@email,@password,now(),'A',@admin); ";
+            int result = 0;
+            try
+            {
+                connectionOpen();
+                cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@num", Data.StudentNumber);
+                cmd.Parameters.AddWithValue("@resno", Data.StudentResNumber);
+                cmd.Parameters.AddWithValue("@name", Data.StudentName);
+                cmd.Parameters.AddWithValue("@sex", Data.StudentSex);
+                cmd.Parameters.AddWithValue("@dept", Data.StudentDept);
+                cmd.Parameters.AddWithValue("@phone", Data.StudentPhone);
+                cmd.Parameters.AddWithValue("@email", Data.StudentEmail);
+                cmd.Parameters.AddWithValue("@password", SHA512(Data.StudentResNumber));
+                cmd.Parameters.AddWithValue("@admin", Admin);
+                cmd.ExecuteNonQuery();
+                result = 1;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                result = 0;
+            }
+            finally
+            {
+                cmd = null;
+                conn.Close();
+                
+            }
+            return result;
+        }
+        //***************************************************
+        //학생 업데이트 result 1 이상 성공 0 실패 
+        //*************************************************** 
+        public int UpdateStudent(StudentAdminViewModel Data,string admin)
+        {
+            int result = 0;
+            string sql = "update SASU_STD set " +
+                "stu_resno = @num, " +
+                "stu_name = @name, " +
+                "stu_resno = @resno " +
+                "stu_sex = @sex, "+
+                "stu_dept = @dept, "+
+                "stu_phone = @phone "+
+                "stu_email =@email ,"+
+                "stu_password = @password "+
+                "datasys1 = now(), " +
+                "datasys2= 'U', " +
+                "datasys3 = @admin " +
+                "where stu_stuno = @num";
+            try
+            {
+                connectionOpen();
+                cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@num", Data.StudentNumber);
+                cmd.Parameters.AddWithValue("@resno", Data.StudentResNumber);
+                cmd.Parameters.AddWithValue("@name", Data.StudentName);
+                cmd.Parameters.AddWithValue("@sex", Data.StudentSex);
+                cmd.Parameters.AddWithValue("@dept", Data.StudentDept);
+                cmd.Parameters.AddWithValue("@phone", Data.StudentPhone);
+                cmd.Parameters.AddWithValue("@email", Data.StudentEmail);
+                cmd.Parameters.AddWithValue("@password", SHA512(Data.StudentPassword));
+                cmd.Parameters.AddWithValue("@admin", admin);
+                cmd.ExecuteNonQuery();
+                result = 1;
+                
+            }catch(Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                result = 0;
+            }
+            finally
+            {
+                cmd = null;
+                conn.Close();
+            }
+            return result;
+        }
+        //***************************************************
+        //학생 삭제 result 1 이상 성공 0 실패 
+        //*************************************************** 
+        public int DeleteStudent(StudentAdminViewModel Data)
+        {
+            int result = 0;
+            string sql = "delete from SASU_STD WHERE stu_stuno =@num;";
+            try
+            {
+                connectionOpen();
+                cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@num", Data.StudentNumber);
+                cmd.ExecuteNonQuery();
+                result = 1;
+            }catch(Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                result = 0;
+            }
+            finally
+            {
+                cmd = null;
+                conn.Close();
+            }
+            return result;
+        }
+        //***************************************************
+        //학생 조회
+        //*************************************************** 
+        public void SelectStudent(BindingList<StudentAdminViewModel> myViewModel)
+        {
+            string sql = "Select * from SASU_STD";
+            try
+            {
+                connectionOpen();
+                cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader reader =  cmd.ExecuteReader();
+                myViewModel.Clear();
+                while (reader.Read())
+                {
+                    //stu_stuno, stu_resno, stu_name, stu_sex, stu_dept, stu_phone, stu_email, stu_password, datasys1, datasys2, datasys3
+                    string ResNo = reader["stu_resno"].ToString();
 
+                    StudentAdminViewModel Data = new StudentAdminViewModel
+                    {
+                        StudentCode = "S",
+                        StudentNumber = reader["stu_stuno"].ToString(),
+                        StudentResNumber1 = ResNo.Substring(0, 6),
+                        StudentResNumber2 = ResNo.Substring(6),
+                        StudentEmail = reader["stu_email"].ToString(),
+                        StudentName = reader["stu_name"].ToString(),
+                        StudentPassword = reader["stu_password"].ToString(),
+                        StudentPhone = reader["stu_phone"].ToString(),
+                        StudentSex = reader["stu_sex"].ToString(),
+                        StudentDept = reader["stu_dept"].ToString(),
+                    };
+                    myViewModel.Insert(myViewModel.Count, Data);
+                }
+            }catch(Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                cmd = null;
+                conn.Close();
+            }
         }
         #endregion 
     }

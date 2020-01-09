@@ -65,3 +65,8 @@ C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Dept\Department
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Dept\DepartmentAdmin.baml
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Student\StudentAdmin.g.cs
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\Student\StudentAdmin.baml
+C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\bin\Debug\ExcelDataReader.dll
+C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\bin\Debug\ExcelDataReader.pdb
+C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\bin\Debug\ExcelDataReader.xml
+C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\SurveyTool\CreateSurvey.g.cs
+C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\SurveyTool\CreateSurvey.baml

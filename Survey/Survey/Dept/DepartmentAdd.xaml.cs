@@ -27,7 +27,7 @@ namespace Survey
         ManageSql sql = new ManageSql();
         string[] selectArray = new string[2];
         string AdminId = "dkxltks25:박재홍";
-
+        private string ExcelFileName = "dkxltks25-박재홍-학생";
         //*********************************************
         //생성자
         //*********************************************
@@ -263,6 +263,12 @@ namespace Survey
                 Console.WriteLine(e1.ToString());
             }
 
+        }
+        
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            //CreateExcel();
         }
     }
 }

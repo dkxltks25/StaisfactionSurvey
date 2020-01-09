@@ -44,7 +44,7 @@
                     <Button x:Name="CancelButton" Height="Auto" Margin="10,10,0,10" Width="66" Click="CancelButton_Click">
                         <materialDesign:PackIcon Kind="Clear" Width="AUTO" Height="AUTO"/>
                     </Button>
-                    <Button x:Name="SaveButton" Height="Auto" Margin="10,10,0,10" Width="66">
+                    <Button x:Name="SaveButton" Height="Auto" Margin="10,10,0,10" Width="66" Click="SaveButton_Click">
                         <materialDesign:PackIcon Kind="ContentSave" Width="AUTO" Height="AUTO"/>
                     </Button>
                 </WrapPanel>
