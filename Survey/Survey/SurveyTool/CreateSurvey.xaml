@@ -4,8 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Survey.SurveyTool"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+
         mc:Ignorable="d"
-        Title="CreateSurvey" Height="450" Width="800">
+        Title="CreateSurvey" Height="982.674" Width="931.199" WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.5*" />
@@ -14,19 +16,85 @@
             <ColumnDefinition Width="0.5*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.3*"/>
+            <RowDefinition Height="0.15*"/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition Height="0.2*"/>
         </Grid.RowDefinitions>
-        <GroupBox 
-            Grid.Column="2"
-            Grid.Row="1"
+        <materialDesign:Card
+            Grid.ColumnSpan="4">
+            <WrapPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,2,10,1" >
+                <Button x:Name="InfoButton"  Height="Auto" Margin="10,10,0,10" Width="66" Click="InfoButton_Click" >
+                    <materialDesign:PackIcon Kind="Information" Width="AUTO" Height="AUTO"/>
+                </Button>
+                <Button x:Name="AddButton" Height="Auto" Margin="10,10,0,10" Width="66" Click="AddButton_Click">
+                    <materialDesign:PackIcon Kind="Add" Width="AUTO" Height="AUTO"/>
+                </Button>
+                <Button x:Name="UpdateButton" Height="Auto" Margin="10,10,0,10" Width="66" Click="UpdateButton_Click">
+                    <materialDesign:PackIcon Kind="Update" Width="AUTO" Height="AUTO"/>
+                </Button>
+                <Button x:Name="SaveButton" Height="Auto" Margin="10,10,0,10" Width="66" Click="SaveButton_Click">
+                    <materialDesign:PackIcon Kind="ContentSave" Width="AUTO" Height="AUTO"/>
+                </Button>
+            </WrapPanel>
+
+        </materialDesign:Card>
+        <Border
+            Grid.Column="0"
             Grid.ColumnSpan="2"
-            Grid.RowSpan="2"
-            Header="웹 확인">
-            <WebBrowser x:Name="web">
-                
-            </WebBrowser>
+            Grid.Row="1"
+             Margin="10" 
+            BorderBrush="#FF673AB7"
+            BorderThickness="3">
+            <DataGrid
+               SelectionMode="Extended"
+                Name="DG1"
+                CanUserAddRows="False" 
+                CanUserResizeColumns="False" 
+                CanUserSortColumns="True" 
+                EnableRowVirtualization="False"
+                AutoGenerateColumns="False" 
+                >
+                <DataGrid.Columns>
+                    <materialDesign:DataGridTextColumn IsReadOnly="False" Header="입력구분" Binding="{Binding SurveyCode}" />
+                    <DataGridTemplateColumn Width="100" Header="Template">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox x:Name="com"  IsEnabled="True" IsEditable="True" IsReadOnly="True"
+                                          SelectedValuePath="Status"
+                                          ItemsSource="{Binding SurveyOptionList}"
+                                          Text="{Binding SurveyOption}"
+                                          />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <materialDesign:DataGridTextColumn IsReadOnly="False" Header="제목" Binding="{Binding SurveyTitle}" />
+                    <materialDesign:DataGridTextColumn IsReadOnly="False" Header="설명" Binding="{Binding SurveyDescrip}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+        <Border
+            Grid.Row="2"
+            Grid.ColumnSpan="2"
+            BorderBrush="#FF673AB7"
+            BorderThickness="3"
+            Margin="10"
+            >
+            <DataGrid x:Name="DG2">
+
+            </DataGrid>
+        </Border>
+        <GroupBox
+            Margin="10"
+            Grid.Column="2"
+            Grid.ColumnSpan="2"
+            Grid.Row="1"
+            Grid.RowSpan="3"
+            Header="결과 화면"
+            BorderThickness="2"
+            IsEnabled="False"
+            >
+            <WebBrowser x:Name="web" />
         </GroupBox>
     </Grid>
 </Window>

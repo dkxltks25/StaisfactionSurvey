@@ -70,3 +70,5 @@ C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\bin\Debug\ExcelDataReader
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\bin\Debug\ExcelDataReader.xml
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\SurveyTool\CreateSurvey.g.cs
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\SurveyTool\CreateSurvey.baml
+C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\bin\Debug\Newtonsoft.Json.dll
+C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\bin\Debug\Newtonsoft.Json.xml
