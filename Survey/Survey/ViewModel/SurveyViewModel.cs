@@ -9,8 +9,7 @@ namespace Survey.ViewModel
 {
      class SurveyViewModel:INotifyPropertyChanged
     {
-        //설문조사 기본정보
-     
+        #region  설문조사 기본정보
         private string Code;
         public string SurveyCode
         {
@@ -59,6 +58,7 @@ namespace Survey.ViewModel
             }
             set
             {
+                Console.WriteLine("-------테스트" + value);
                 Option = value;
                 NotifyPropertyChanged("SurveyOption");
             }
@@ -71,20 +71,37 @@ namespace Survey.ViewModel
                 return new List<string> { "", "단답형", "장문형", "객관식1", "객관식2", "그리드" };
             }
         }
-
+        private BindingList<Item> MyItem =  new BindingList<Item>();
+        public BindingList<Item> SurveyItem
+        {
+            get
+            {
+                try
+                {
+                       return MyItem;
+                   
+                }
+                catch(Exception err)
+                {
+                    return MyItem = new BindingList<Item>();
+                }
+                
+            }
+            
+        }
         public class Item
         {
-            private string Name;
-            public string ItemName
+            private string item;
+            public string SurveyItem
             {
                 get
                 {
-                    return Name;
+                    return item;
                 }
                 set
                 {
-                    Name = value;
-                    NotifyPropertyChanged("ItemName");
+                    item = value;
+                    NotifyPropertyChanged("SurveyItem");
                 }
             }
             #region property 변경 체크
@@ -99,7 +116,8 @@ namespace Survey.ViewModel
             }
             #endregion
         }
-      
+        #endregion
+
         #region property 변경 체크
         public event PropertyChangedEventHandler PropertyChanged;
         //이벤트 할당

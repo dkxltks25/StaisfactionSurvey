@@ -57,14 +57,19 @@
                 >
                 <DataGrid.Columns>
                     <materialDesign:DataGridTextColumn IsReadOnly="False" Header="입력구분" Binding="{Binding SurveyCode}" />
-                    <DataGridTemplateColumn Width="100" Header="Template">
-                        <DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn Width="100" Header="설문지 항목"  >
+                        <DataGridTemplateColumn.CellTemplate >
                             <DataTemplate>
-                                <ComboBox x:Name="com"  IsEnabled="True" IsEditable="True" IsReadOnly="True"
-                                          SelectedValuePath="Status"
-                                          ItemsSource="{Binding SurveyOptionList}"
-                                          Text="{Binding SurveyOption}"
-                                          />
+                                <ComboBox x:Name="DGCom"  
+                                          IsEnabled="True" 
+                                          IsEditable="True" 
+                                          IsReadOnly="True"
+                                          ItemsSource="{Binding SurveyOptionList }"
+                                          SelectionChanged="DG1_SelectionChanged"
+                                          SelectedValue="{Binding SurveyOption,NotifyOnSourceUpdated=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                          >
+                                 
+                                </ComboBox>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -80,8 +85,13 @@
             BorderThickness="3"
             Margin="10"
             >
-            <DataGrid x:Name="DG2">
-
+            <DataGrid x:Name="DG2"
+                SelectionMode="Extended"
+                CanUserAddRows="False" 
+                CanUserResizeColumns="False" 
+                CanUserSortColumns="True" 
+                EnableRowVirtualization="False"
+                AutoGenerateColumns="False" >
             </DataGrid>
         </Border>
         <GroupBox
