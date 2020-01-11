@@ -135,7 +135,16 @@ namespace Survey.SurveyTool
                 DG2.Columns.Add(textColumn1);
             }
         }
+        //***********************************************
+        //DG1의 셀렉트 체인지 이벤트
+        //***********************************************
+        private void DG1_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+            DG2.ItemsSource = myViewModel[DG1.SelectedIndex].SurveyItem;
+        }
         #endregion
+
+
     }
 
 }

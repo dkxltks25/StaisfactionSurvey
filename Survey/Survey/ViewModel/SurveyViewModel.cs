@@ -78,7 +78,7 @@ namespace Survey.ViewModel
             {
                 try
                 {
-                       return MyItem;
+                   return MyItem;
                    
                 }
                 catch(Exception err)
@@ -102,6 +102,32 @@ namespace Survey.ViewModel
                 {
                     item = value;
                     NotifyPropertyChanged("SurveyItem");
+                }
+            }
+            private string Row;
+            public string SurveyRow
+            {
+                get
+                {
+                    return Row;
+                }
+                set
+                {
+                    Row = value;
+                    NotifyPropertyChanged("SurveyRow");
+                }
+            }
+            private string Column;
+            public string SurveyColumn
+            {
+                get
+                {
+                    return Column;
+                }
+                set
+                {
+                    Column = value;
+                    NotifyPropertyChanged("SurveyColumn");
                 }
             }
             #region property 변경 체크

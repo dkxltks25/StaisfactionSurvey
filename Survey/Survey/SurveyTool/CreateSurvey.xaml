@@ -17,7 +17,9 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.15*"/>
+            <RowDefinition Height="0.3*"/>
             <RowDefinition/>
+            <RowDefinition Height="0.3*"/>
             <RowDefinition/>
             <RowDefinition Height="0.2*"/>
         </Grid.RowDefinitions>
@@ -39,10 +41,20 @@
             </WrapPanel>
 
         </materialDesign:Card>
+        <GroupBox Grid.Row="1" Grid.ColumnSpan="2" Header="작업관리도구" Margin="10">
+            <Grid>
+                <Button x:Name="DG1_AddButton" Height="Auto"  Width="66"  HorizontalAlignment="Left">
+                    <materialDesign:PackIcon Kind="Add" Width="AUTO" Height="AUTO"/>
+                </Button>
+                <Button x:Name="DG1_DeleteButton" Height="Auto"  Width="66"  HorizontalAlignment="Left" Canvas.Left="86" Margin="86,0,0,0">
+                    <materialDesign:PackIcon Kind="Delete" Width="AUTO" Height="AUTO"/>
+                </Button>
+            </Grid>
+        </GroupBox>
         <Border
             Grid.Column="0"
             Grid.ColumnSpan="2"
-            Grid.Row="1"
+            Grid.Row="2"
              Margin="10" 
             BorderBrush="#FF673AB7"
             BorderThickness="3">
@@ -53,14 +65,14 @@
                 CanUserResizeColumns="False" 
                 CanUserSortColumns="True" 
                 EnableRowVirtualization="False"
-                AutoGenerateColumns="False" 
+                AutoGenerateColumns="False" SelectionChanged="DG1_SelectionChanged_1" 
                 >
-                <DataGrid.Columns>
-                    <materialDesign:DataGridTextColumn IsReadOnly="False" Header="입력구분" Binding="{Binding SurveyCode}" />
-                    <DataGridTemplateColumn Width="100" Header="설문지 항목"  >
-                        <DataGridTemplateColumn.CellTemplate >
-                            <DataTemplate>
-                                <ComboBox x:Name="DGCom"  
+                    <DataGrid.Columns>
+                        <materialDesign:DataGridTextColumn IsReadOnly="False" Header="입력구분" Binding="{Binding SurveyCode}" />
+                        <DataGridTemplateColumn Width="100" Header="설문지 항목"  >
+                            <DataGridTemplateColumn.CellTemplate >
+                                <DataTemplate>
+                                    <ComboBox x:Name="DGCom"  
                                           IsEnabled="True" 
                                           IsEditable="True" 
                                           IsReadOnly="True"
@@ -68,18 +80,28 @@
                                           SelectionChanged="DG1_SelectionChanged"
                                           SelectedValue="{Binding SurveyOption,NotifyOnSourceUpdated=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           >
-                                 
-                                </ComboBox>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <materialDesign:DataGridTextColumn IsReadOnly="False" Header="제목" Binding="{Binding SurveyTitle}" />
-                    <materialDesign:DataGridTextColumn IsReadOnly="False" Header="설명" Binding="{Binding SurveyDescrip}" />
-                </DataGrid.Columns>
-            </DataGrid>
+
+                                    </ComboBox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <materialDesign:DataGridTextColumn IsReadOnly="False" Header="제목" Binding="{Binding SurveyTitle}" />
+                        <materialDesign:DataGridTextColumn IsReadOnly="False" Header="설명" Binding="{Binding SurveyDescrip}" />
+                    </DataGrid.Columns>
+                </DataGrid>
         </Border>
+        <GroupBox Grid.Row="3" Grid.ColumnSpan="2" Header="작업관리도구" Margin="10">
+            <Grid>
+                <Button x:Name="DG2_AddButton" Height="Auto"  Width="66"  HorizontalAlignment="Left">
+                <materialDesign:PackIcon Kind="Add" Width="AUTO" Height="AUTO"/>
+            </Button>
+            <Button x:Name="DG2_DeleteButton" Height="Auto"  Width="66"  HorizontalAlignment="Left" Canvas.Left="86" Margin="86,0,0,0">
+                <materialDesign:PackIcon Kind="Delete" Width="AUTO" Height="AUTO"/>
+            </Button>
+            </Grid>
+        </GroupBox>
         <Border
-            Grid.Row="2"
+            Grid.Row="4"
             Grid.ColumnSpan="2"
             BorderBrush="#FF673AB7"
             BorderThickness="3"
@@ -99,7 +121,7 @@
             Grid.Column="2"
             Grid.ColumnSpan="2"
             Grid.Row="1"
-            Grid.RowSpan="3"
+            Grid.RowSpan="5"
             Header="결과 화면"
             BorderThickness="2"
             IsEnabled="False"
