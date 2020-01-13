@@ -72,3 +72,11 @@ C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\SurveyTool\Crea
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\SurveyTool\CreateSurvey.baml
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\bin\Debug\Newtonsoft.Json.dll
 C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\bin\Debug\Newtonsoft.Json.xml
+C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\SurveyTool\SelectSurvey.g.cs
+C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\obj\Debug\SurveyTool\SelectSurvey.baml
+C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\bin\Debug\LiveCharts.dll
+C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\bin\Debug\LiveCharts.Wpf.dll
+C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\bin\Debug\LiveCharts.pdb
+C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\bin\Debug\LiveCharts.xml
+C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\bin\Debug\LiveCharts.Wpf.pdb
+C:\Users\USER\Desktop\StaisfactionSurvey\Survey\Survey\bin\Debug\LiveCharts.Wpf.xml

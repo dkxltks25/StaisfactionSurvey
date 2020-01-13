@@ -43,10 +43,10 @@
         </materialDesign:Card>
         <GroupBox Grid.Row="1" Grid.ColumnSpan="2" Header="작업관리도구" Margin="10">
             <Grid>
-                <Button x:Name="DG1_AddButton" Height="Auto"  Width="66"  HorizontalAlignment="Left">
+                <Button x:Name="DG1_AddButton" Height="Auto"  Width="66"  HorizontalAlignment="Left" Click="DG1_AddButton_Click">
                     <materialDesign:PackIcon Kind="Add" Width="AUTO" Height="AUTO"/>
                 </Button>
-                <Button x:Name="DG1_DeleteButton" Height="Auto"  Width="66"  HorizontalAlignment="Left" Canvas.Left="86" Margin="86,0,0,0">
+                <Button x:Name="DG1_DeleteButton" Height="Auto"  Width="66"  HorizontalAlignment="Left" Canvas.Left="86" Margin="86,0,0,0" Click="DG1_DeleteButton_Click">
                     <materialDesign:PackIcon Kind="Delete" Width="AUTO" Height="AUTO"/>
                 </Button>
             </Grid>
@@ -68,7 +68,7 @@
                 AutoGenerateColumns="False" SelectionChanged="DG1_SelectionChanged_1" 
                 >
                     <DataGrid.Columns>
-                        <materialDesign:DataGridTextColumn IsReadOnly="False" Header="입력구분" Binding="{Binding SurveyCode}" />
+                        <materialDesign:DataGridTextColumn IsReadOnly="True" Header="입력구분" Binding="{Binding SurveyCode}" />
                         <DataGridTemplateColumn Width="100" Header="설문지 항목"  >
                             <DataGridTemplateColumn.CellTemplate >
                                 <DataTemplate>
@@ -92,7 +92,7 @@
         </Border>
         <GroupBox Grid.Row="3" Grid.ColumnSpan="2" Header="작업관리도구" Margin="10">
             <Grid>
-                <Button x:Name="DG2_AddButton" Height="Auto"  Width="66"  HorizontalAlignment="Left">
+                <Button x:Name="DG2_AddButton" Height="Auto"  Width="66"  HorizontalAlignment="Left" Click="DG2_AddButton_Click">
                 <materialDesign:PackIcon Kind="Add" Width="AUTO" Height="AUTO"/>
             </Button>
             <Button x:Name="DG2_DeleteButton" Height="Auto"  Width="66"  HorizontalAlignment="Left" Canvas.Left="86" Margin="86,0,0,0">

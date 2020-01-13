@@ -49,6 +49,7 @@ namespace Survey.ViewModel
                 NotifyPropertyChanged("SurveyDescrip");
             }
         }
+        
         private string Option;
         public string SurveyOption
         {
@@ -63,7 +64,30 @@ namespace Survey.ViewModel
                 NotifyPropertyChanged("SurveyOption");
             }
         }
+       private string Number;
+        public string OptionNumber
+        {
+            
+            get
+            {
+                switch (SurveyOption)
+                {
+                    case "단답형":
+                        return "0";
+                    case "장문형":
+                        return "1";
+                    case "객관식1":
+                        return "2";
+                    case "객관식2":
+                        return "3";
+                    case "그리드":
+                        return "4";
+                    default:
+                        return "E";
+                }
 
+            }
+        }
         public List<string> SurveyOptionList
         {
             get
@@ -91,6 +115,21 @@ namespace Survey.ViewModel
         }
         public class Item
         {
+            private string Code;
+            public string SurveyInputCode
+            {
+                get
+                {
+                    return Code;
+                }
+                set
+                {
+                    Code = value;
+                    NotifyPropertyChanged("SurveyInputCode");
+                }
+            }
+        
+
             private string item;
             public string SurveyItem
             {

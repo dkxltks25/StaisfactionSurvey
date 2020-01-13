@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using Survey.ViewModel;
 using Newtonsoft.Json;
 using System.Data;
+using Newtonsoft.Json.Linq;
 
 namespace Survey.SurveyTool
 {
@@ -32,11 +33,11 @@ namespace Survey.SurveyTool
             InitializeComponent();
             myViewModel = new BindingList<SurveyViewModel>();
             DG1.ItemsSource = myViewModel;
-            ConnectWeb();
+            //ConnectWeb();
             //CreateTableColumn();
        
         }
-        public void ConnectWeb()
+        public void ConnectWeb(string json)
         {
             string url = "file:///C:/Users/USER/Desktop/survey/Form.html?"+json;
             Console.WriteLine(url);
@@ -45,18 +46,13 @@ namespace Survey.SurveyTool
        
         private void InfoButton_Click(object sender, RoutedEventArgs e)
         {
-            SurveyViewModel.Item Temp = new SurveyViewModel.Item { SurveyItem = "S" };
-            Console.WriteLine(myViewModel[DG1.SelectedIndex].SurveyItem.Count);
-            myViewModel[DG1.SelectedIndex].SurveyItem.Insert(
-                myViewModel[DG1.SelectedIndex].SurveyItem.Count,
-                Temp);
+            
         }
         //***********************************************
         //Add버튼 클릭
         //***********************************************
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            myViewModel.Insert(myViewModel.Count, new SurveyViewModel { SurveyCode="S" });
         }
 
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
@@ -64,9 +60,69 @@ namespace Survey.SurveyTool
 
         }
 
+        //***********************************************
+        //저장 버튼 클릭 화면에 입력된 데이터 JSON 변경
+        //***********************************************
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            var FormData = new JObject();
+            var Title = new JObject();
+            Title.Add("Title", "Test");
+            Title.Add("Descrip", "123");
+            var Item = new JArray();
+            for(int i = 0; i < myViewModel.Count; i++)
+            {
+                
+                var SurveySubject = new JObject();
+                SurveySubject.Add("Title", myViewModel[i].SurveyTitle);
+                SurveySubject.Add("Descrip", myViewModel[i].SurveyDescrip);
+                SurveySubject.Add("Option", myViewModel[i].OptionNumber);
+                SurveySubject.Add("OptionName", myViewModel[i].SurveyOption);
+                if (myViewModel[i].SurveyOption != "단답형" && myViewModel[i].SurveyOption != "장문형")
+                {
 
+                    var SurveyRow = new JArray();
+                    var SurveyColumn = new JArray();
+                    var SurveyItem = new JArray();
+                    var SurveyItemRowAndColumn = new JObject();
+                    for (int j = 0; j < myViewModel[i].SurveyItem.Count; j++)
+                    {
+                        if (myViewModel[i].SurveyOption == "객관식1" || myViewModel[i].SurveyOption == "객관식2")
+                        {
+                            SurveyItem.Add(myViewModel[i].SurveyItem[j].SurveyItem);
+
+                        }
+                        else if (myViewModel[i].SurveyOption == "그리드")
+                        {
+                            if (!string.IsNullOrEmpty(myViewModel[i].SurveyItem[j].SurveyRow))
+                            {
+                                SurveyRow.Add(myViewModel[i].SurveyItem[j].SurveyRow);
+                            }
+                            if (!string.IsNullOrEmpty(myViewModel[i].SurveyItem[j].SurveyColumn))
+                            {
+                                SurveyColumn.Add(myViewModel[i].SurveyItem[j].SurveyColumn);
+                            }
+                        }
+                    }
+                    SurveyItemRowAndColumn.Add("Row",SurveyRow);
+                    SurveyItemRowAndColumn.Add("Column", SurveyColumn);
+                    if(myViewModel[i].SurveyOption == "그리드")
+                    {
+                        SurveySubject.Add("item", SurveyItemRowAndColumn);
+                    }   
+                    else
+                    {
+                        SurveySubject.Add("item", SurveyItem);
+                    }
+                }
+                Item.Add(SurveySubject);
+            }
+            FormData.Add("Title", Title);
+            FormData.Add("item", Item);
+            string str_json = JsonConvert.SerializeObject(FormData);
+            string Url = "&Collection=" + str_json;
+            ConnectWeb(Url);
+            Console.WriteLine(Url);
         }
 
         #region 데이터 그리드 뷰 제어
@@ -84,12 +140,13 @@ namespace Survey.SurveyTool
                     CreateTableColumn(1);
                     break;
                 case "객관식2":
-                    CreateTableColumn(1);
-                    break;
-                case "그리드":
                     CreateTableColumn(2);
                     break;
+                case "그리드":
+                    CreateTableColumn(3);
+                    break;
                 default:
+                    CreateTableColumn(0);
                     break;
             }
 
@@ -102,7 +159,6 @@ namespace Survey.SurveyTool
             DG2.Columns.Clear();
 
             BindingList<SurveyViewModel.Item> test = myViewModel[DG1.SelectedIndex].SurveyItem;
-            SurveyViewModel.Item t = new SurveyViewModel.Item { SurveyItem = "tt" };
             DG2.ItemsSource = myViewModel[DG1.SelectedIndex].SurveyItem;
             DataGridTextColumn textColumn = new DataGridTextColumn();
             DataGridTextColumn textColumn1 = new DataGridTextColumn();
@@ -112,7 +168,6 @@ namespace Survey.SurveyTool
             {
                 textColumn.Header = "항목";
                 textColumn.Binding = new Binding("SurveyItem");
-                test.Insert(test.Count, t);
 
                 DG2.Columns.Add(textColumn);
             }
@@ -120,7 +175,6 @@ namespace Survey.SurveyTool
             {
                 textColumn.Header = "항목";
                 textColumn.Binding = new Binding("SurveyItem");
-                test.Insert(test.Count, t);
                 DG2.Columns.Add(textColumn);
             }
             //그리드 columnCase 3
@@ -136,15 +190,109 @@ namespace Survey.SurveyTool
             }
         }
         //***********************************************
+        //DG2의 동적 컬럼명 변경
+        //***********************************************
+        private void ChangedColumnName(int columnCase)
+        {
+            DG2.Columns.Clear();
+            //단답형 OR 주관식
+            if (columnCase == 0)
+                return;
+            
+            DG2.ItemsSource = myViewModel[DG1.SelectedIndex].SurveyItem;
+
+            //입력구분
+
+            DataGridTextColumn InputCode = new DataGridTextColumn();
+            InputCode.Binding = new Binding("SurveyInputCode");
+            InputCode.Header = "입력구분";
+            InputCode.IsReadOnly = true;
+            DG2.Columns.Add(InputCode);
+            // 항목 OR 로우 OR 컬럼
+            DataGridTextColumn textColumn = new DataGridTextColumn();
+            DataGridTextColumn textColumn1 = new DataGridTextColumn();
+            //객관식 ||  주관식 columncase 1 ,2
+            if (columnCase == 1)
+            {
+                
+                textColumn.Header = "항목";
+                textColumn.Binding = new Binding("SurveyItem");
+
+                DG2.Columns.Add(textColumn);
+            }
+            else if (columnCase == 2)
+            {
+                textColumn.Header = "항목";
+                textColumn.Binding = new Binding("SurveyItem");
+                DG2.Columns.Add(textColumn);
+            }
+            //그리드 columnCase 3
+            else if (columnCase == 3)
+            {
+                textColumn.Header = "가로(행)";
+                textColumn.Binding = new Binding("SurveyRow");
+                DG2.Columns.Add(textColumn);
+
+                textColumn1.Header = "세로(줄)";
+                textColumn1.Binding = new Binding("SurveyColumn");
+                DG2.Columns.Add(textColumn1);
+            }
+        }
+
+        //***********************************************
         //DG1의 셀렉트 체인지 이벤트
         //***********************************************
         private void DG1_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
             DG2.ItemsSource = myViewModel[DG1.SelectedIndex].SurveyItem;
+            switch (myViewModel[DG1.SelectedIndex].SurveyOption)
+            {
+
+                case "객관식1":
+                    ChangedColumnName(1);
+                    break;
+                case "객관식2":
+                    ChangedColumnName(2);
+                    break;
+                case "그리드":
+                    ChangedColumnName(3);
+                    break;
+                default:
+                    ChangedColumnName(0);
+                    break;
+            }
+        }
+        //***********************************************
+        //DG1 Add 버튼
+        //***********************************************
+        private void DG1_AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            myViewModel.Insert(myViewModel.Count, new SurveyViewModel { SurveyCode = "S" });
+        }
+
+        #endregion
+
+        #region DG2제어
+        //***********************************************
+        //DG2 Add버튼
+        //***********************************************
+        private void DG2_AddButton_Click(object sender, RoutedEventArgs e)
+        { 
+            SurveyViewModel.Item Temp = new SurveyViewModel.Item { SurveyInputCode = ""};
+            if(DG1.SelectedIndex < 0)
+            {
+                return;
+            }
+            myViewModel[DG1.SelectedIndex].SurveyItem.Insert(
+                myViewModel[DG1.SelectedIndex].SurveyItem.Count,
+                Temp);
         }
         #endregion
 
+        private void DG1_DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
 
+        }
     }
 
 }
