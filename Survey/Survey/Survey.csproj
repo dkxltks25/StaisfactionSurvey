@@ -106,9 +106,6 @@
       <DependentUpon>AdminManagementPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Command\Command.cs" />
-    <Compile Include="CreateSurveyPage.xaml.cs">
-      <DependentUpon>CreateSurveyPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Dept\DepartmentAdd.xaml.cs">
       <DependentUpon>DepartmentAdd.xaml</DependentUpon>
     </Compile>
@@ -117,9 +114,6 @@
     </Compile>
     <Compile Include="ManageSql.cs" />
     <Compile Include="Model\AdminModel.cs" />
-    <Compile Include="SelectSurveyPage.xaml.cs">
-      <DependentUpon>SelectSurveyPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Student\StudentAdmin.xaml.cs">
       <DependentUpon>StudentAdmin.xaml</DependentUpon>
     </Compile>
@@ -139,10 +133,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AdminManagementPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="CreateSurveyPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -169,10 +159,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="SelectSurveyPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Student\StudentAdmin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

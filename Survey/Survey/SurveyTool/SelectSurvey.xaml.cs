@@ -21,7 +21,9 @@ namespace Survey.SurveyTool
     public partial class SelectSurvey : Window
     {
         BindingList<SelectSurveyViewModel> myViewModel;
-        int Btn_state = 0;
+        public int btn_state = 0;
+        string[] tempArray = new string[3];
+        ManageSql Sql = new ManageSql();
         public SelectSurvey()
         {
             InitializeComponent();
@@ -45,7 +47,6 @@ namespace Survey.SurveyTool
         /// 1수정
         /// 2삭제
         /// </summary>
-        private int btn_state = 0;
         //*********************************************
         // 초기상태
         //*********************************************
@@ -95,49 +96,129 @@ namespace Survey.SurveyTool
         public void resetText()
         {
             //바인딩 해체
+            SurveyInfo.DataContext = new SelectSurveyViewModel();
+            name.Text = "";
+
+            st.SelectedDate = DateTime.Now;
+            ft.SelectedDate = DateTime.Now;
+
         }
 
         #endregion
 
-      
+
         //*****************************************************************
         // Add버튼 클릭 
         //*****************************************************************
-
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
+            btn_state = 0;
             checkState();
         }
 
+        //*****************************************************************
+        // 업데이트 버튼 클릭 
+        //*****************************************************************
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
-
+            btn_state = 1;
+            checkState();
         }
-
+        //*****************************************************************
+        // 삭제 버튼 클릭 
+        //*****************************************************************
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-
+            btn_state = 2;
+            checkState();
         }
 
+        //*****************************************************************
+        // 확인 버튼 클릭 
+        //*****************************************************************
         private void CheckButton_Click(object sender, RoutedEventArgs e)
-        {
-
+        { 
             SelectSurveyViewModel data = (SelectSurveyViewModel)SurveyInfo.DataContext;
-            Console.WriteLine(data.SurveyName);
-            SelectSurveyViewModel temp = new SelectSurveyViewModel { };
-            temp.SurveyName = data.SurveyName.ToString();
-     
-            myViewModel.Insert(myViewModel.Count, temp);
+
+            if(btn_state == 0)
+            {
+                Console.WriteLine(data.SurveyName);
+                SelectSurveyViewModel temp = new SelectSurveyViewModel
+                {
+                    SurveyCode = "A",
+                    SurveyName = data.SurveyName,
+                    StartTime = data.StartTime,
+                    FinishTime = data.FinishTime
+                };
+                myViewModel.Insert(myViewModel.Count, temp);
+            }
+            //업데이트
+            else if(btn_state == 1)
+            {
+                if (myViewModel[DG1.SelectedIndex].SurveyCode == "S")
+                {
+                    myViewModel[DG1.SelectedIndex].SurveyCode = "U";
+                }
+                else if (myViewModel[DG1.SelectedIndex].SurveyCode == "D")
+                {
+                    myViewModel[DG1.SelectedIndex].SurveyCode = "U";
+                }
+            }
+            //삭제
+            else if(btn_state == 2)
+            {
+                if(myViewModel[DG1.SelectedIndex].SurveyCode == "S" || myViewModel[DG1.SelectedIndex].SurveyCode == "U")
+                {
+                    myViewModel[DG1.SelectedIndex].SurveyDivision = myViewModel[DG1.SelectedIndex].SurveyCode;
+                    myViewModel[DG1.SelectedIndex].SurveyCode = "D";
+                }else if(myViewModel[DG1.SelectedIndex].SurveyCode == "D")
+                {
+                    myViewModel[DG1.SelectedIndex].SurveyCode = myViewModel[DG1.SelectedIndex].SurveyDivision;
+                }
+                else
+                {
+                    myViewModel.RemoveAt(DG1.SelectedIndex);
+                }
+
+            }
+            resetText();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
 
         }
-
+        //*****************************************************************
+        // 저장 버튼 클릭 
+        //*****************************************************************
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            for(int i = 0; i < myViewModel.Count; i++)
+            {
+                //입력
+                if(myViewModel[i].SurveyCode == "A")
+                {
+                    Sql.InsertSelectSurvey(myViewModel[i], "dkxltks25 박재홍");
+                }
+                else if(myViewModel[i].SurveyCode == "U")
+                {
+                    Sql.UpdateSelectSurvey(myViewModel[i],"dkxltks25 박재홍");
 
+                }
+                else if(myViewModel[i].SurveyCode == "D")
+                {
+                    Sql.DeleteSelectSurvey(myViewModel[i].SurveyId);
+                }
+
+            }
+            SelectTable();
+        }
+        //*****************************************************************
+        // 전체 조회 
+        //*****************************************************************
+        private void SelectTable()
+        {
+            Sql.SelectSelectSurvey(myViewModel);
         }
         private void InfoButton_Click(object sender, RoutedEventArgs e)
         {
@@ -148,14 +229,27 @@ namespace Survey.SurveyTool
         {
 
         }
+        //*****************************************************************
+        // DG1 셀렉트 체인지
+        //*****************************************************************
         private void DG1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            UpdateAndDeleteState();
+            SurveyInfo.DataContext = myViewModel[DG1.SelectedIndex];
+            Console.WriteLine(myViewModel[DG1.SelectedIndex].FinishTime);
+            //학과 등록및 학과 수정
+            if (myViewModel[DG1.SelectedIndex].SurveyCode != "A")
+            {
+               
+            }
+            
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
+
+    
     }
 }

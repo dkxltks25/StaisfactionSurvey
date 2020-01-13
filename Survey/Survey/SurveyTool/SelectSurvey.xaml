@@ -67,15 +67,19 @@
                       CanUserSortColumns="True" 
                       EnableRowVirtualization="False"
                       AutoGenerateColumns="False" 
-                      CanUserDeleteRows="True" SelectionChanged="DG1_SelectionChanged" >
+                      CanUserDeleteRows="True" SelectionChanged="DG1_SelectionChanged"
+               >
                 <DataGrid.Columns>
-                    <materialDesign:DataGridTextColumn Binding="{Binding }" Header="입력구분" CanUserReorder="True" IsReadOnly="True"   />
-                    <DataGridTextColumn IsReadOnly="False" Header="부서 및 학과 아이디" Binding="{Binding }" />
-                    <DataGridTextColumn IsReadOnly="False" Header="부서 및 학과 이름" Binding="{Binding }" />
-                    <DataGridTemplateColumn Width="100" Header="설문지 작성 및 수정"  >
+                    <materialDesign:DataGridTextColumn Binding="{Binding SurveyCode}" Header="입력구분" CanUserReorder="True" IsReadOnly="True"   />
+                    <DataGridTextColumn IsReadOnly="False" Header="설문지 이름" Binding="{Binding SurveyName}"  />
+                    <materialDesign:DataGridTextColumn Binding="{Binding SurveyDescrip}" Header="설문지 설명" CanUserReorder="True" IsReadOnly="True"   />
+
+                    <DataGridTextColumn IsReadOnly="False" Header="설문지 조사 시작일"  Binding="{Binding StartTime}" />
+                    <DataGridTextColumn IsReadOnly="False" Header="설문지 조사 종료일"  Binding="{Binding FinishTime}" />
+                    <DataGridTemplateColumn Width="100" Header="설문지 작성 및 수정" >
                         <DataGridTemplateColumn.CellTemplate >
                             <DataTemplate>
-                                <Button x:Name="DG1Button"></Button>
+                                <Button x:Name="DG1Button" Content="설문지 작성하기"></Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -86,11 +90,15 @@
         <GroupBox x:Name="SurveyInfo" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Margin="10" Header="설문지 입력">
             <Canvas>
                 <Label Content="설문지 이름" Canvas.Left="10" Canvas.Top="18"></Label>
-                <TextBox  Width="135" Canvas.Left="119" Canvas.Top="13" Text ="{Binding SurveyName}"></TextBox>
-                <Label Content="설문지 시작일" Canvas.Left="10" Canvas.Top="61" />
-                <DatePicker Canvas.Left="119" Canvas.Top="61" Width="135" Text="{Binding StartTime}"></DatePicker>
-                <Label Content="설문지 종료일" Canvas.Left="10" Canvas.Top="99" />
-                <DatePicker Canvas.Left="119" Canvas.Top="91" Width="135" Text="{Binding FinishTime}"/>
+                <TextBox x:Name="name" Width="135" Canvas.Left="119" Canvas.Top="13" Text ="{Binding SurveyName}" ></TextBox>
+                <Label Content="설문지 설명" Canvas.Left="10" Canvas.Top="65"/>
+                <TextBox x:Name="name_Copy" Width="135" Canvas.Left="119" Canvas.Top="60" Text ="{Binding SurveyDescrip}" />
+                <Label Content="설문지 시작일" Canvas.Left="10" Canvas.Top="99" />
+                
+                <DatePicker x:Name="st" Canvas.Left="119" Canvas.Top="99" Width="135"  SelectedDate="{Binding StartTime}"></DatePicker>
+                <Label Content="설문지 종료일" Canvas.Left="10" Canvas.Top="137" />
+                <DatePicker x:Name="ft" Canvas.Left="119" Canvas.Top="129" Width="135" SelectedDate="{Binding FinishTime}"/>
+                
             </Canvas>
         </GroupBox>
         <GroupBox
@@ -107,7 +115,7 @@
                 </Grid.ColumnDefinitions>
                 <DataGrid Name="LDG">
                     <DataGrid.Columns>
-                        <materialDesign:DataGridTextColumn Binding="{Binding InputCode}" Header="입력구분" CanUserReorder="True" IsReadOnly="True"/>
+                        <materialDesign:DataGridTextColumn Binding="{Binding InputCode}" Header="위치구분" CanUserReorder="True" IsReadOnly="True"/>
                         <materialDesign:DataGridTextColumn Binding="{Binding DeptName}" Header="부서 및 학과명" CanUserReorder="True" IsReadOnly="True"/>
                     </DataGrid.Columns>
                 </DataGrid>

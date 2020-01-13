@@ -45,8 +45,6 @@ namespace Survey
            //설문지 관리
            else if(HeaderValue == "설문지조회")
             {
-                SelectSurveyPage selectsurveypage = new SelectSurveyPage();
-                selectsurveypage.Show();
             }
            //설문지 생성
            else if(HeaderValue == "설문지생성")

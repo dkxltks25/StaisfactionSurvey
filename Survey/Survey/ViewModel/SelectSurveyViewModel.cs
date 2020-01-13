@@ -10,6 +10,20 @@ namespace Survey.ViewModel
     public class SelectSurveyViewModel : INotifyPropertyChanged
     {
         #region 기본정보
+
+        private string Code;
+        public string SurveyCode
+        {
+            get
+            {
+                return Code;
+            }
+            set
+            {
+                Code = value;
+                NotifyPropertyChanged("SurveyCode");
+            }
+        }
         private string Id;
         public string SurveyId
         {
@@ -36,8 +50,22 @@ namespace Survey.ViewModel
                 NotifyPropertyChanged("SurveyName");
             }
         }
-        private string startTime;
-        public string StartTime
+        private string Descrip;
+        public string SurveyDescrip
+        {
+            get
+            {
+                return Descrip;
+            }
+            set
+            {
+                Descrip = value;
+                NotifyPropertyChanged("SurveyDescrip");
+            }
+        }
+
+        private DateTime startTime = DateTime.Now;
+        public DateTime StartTime
         {
             get
             {
@@ -49,8 +77,8 @@ namespace Survey.ViewModel
                 NotifyPropertyChanged("StartTime");
             }
         }
-        private string finishTime;
-        public string FinishTime
+        private DateTime finishTime = DateTime.Now;
+        public DateTime FinishTime
         {
             get
             {
@@ -60,6 +88,19 @@ namespace Survey.ViewModel
             {
                 finishTime = value;
                 NotifyPropertyChanged("FinishTime");
+            }
+        }
+        private string Division;
+        public string SurveyDivision
+        {
+            get
+            {
+                return Division;
+            }
+            set
+            {
+                Division = value;
+                NotifyPropertyChanged("SurveyDivision");
             }
         }
         #endregion

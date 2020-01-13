@@ -510,6 +510,140 @@ namespace Survey
                 conn.Close();
             }
         }
-        #endregion 
+        #endregion
+
+        #region SelectSurveyPage query
+        //***************************************************
+        //설문지 입력 1:성공 0:실패
+        //*************************************************** 
+        public int InsertSelectSurvey(SelectSurveyViewModel data,string admin)
+        {
+            connectionOpen();
+            string sql = "insert into sasu_suv(adm_id, suv_name, suv_descrip, suv_stime, suv_ftime, datasys1, datasys2, datasys3) " +
+                "value(@adminName, @SurveyName,@SurveyDescrip,@Stime,@Ftime,now(),'A',@admin);";
+            int result = 0;
+            try
+            {
+                cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@adminName", "dkxltks25");
+                cmd.Parameters.AddWithValue("@SurveyName",data.SurveyName );
+                cmd.Parameters.AddWithValue("@SurveyDescrip", data.SurveyDescrip);
+                cmd.Parameters.AddWithValue("@Stime", data.StartTime.ToString("yyyy-MM-dd HH:mm:ss"));
+                cmd.Parameters.AddWithValue("@Ftime", data.FinishTime.ToString("yyyy-MM-dd HH:mm:ss"));
+                cmd.Parameters.AddWithValue("@admin", admin);
+                cmd.ExecuteNonQuery();
+                result = 1;
+            }catch(Exception e)
+            {
+                result = 0;
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                cmd = null;
+                conn.Close();
+            }
+            return result;
+        }
+        //***************************************************
+        //설문지 업데이트 1:성공 0:실패
+        //*************************************************** 
+        public int UpdateSelectSurvey(SelectSurveyViewModel data, string admin)
+        {
+            string sql = "update sasu_suv set \n" +
+                     "suv_name = @name,\n" +
+                     "suv_descrip = @descrip,\n" +
+                     "suv_stime = @st,\n" +
+                     "suv_ftime = @ft,\n" +
+                     "datasys1 = now(),\n" +
+                     "datasys2 = 'U',\n" +
+                     "datasys3 = @admin where suv_suvId = @id;";
+            int result = 0;
+            connectionOpen();
+            try
+            {
+                cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@name", data.SurveyName);
+                cmd.Parameters.AddWithValue("@descrip", data.SurveyDescrip);
+                cmd.Parameters.AddWithValue("@st", data.StartTime.ToString("yyyy-MM-dd HH:mm:ss"));
+                cmd.Parameters.AddWithValue("@ft", data.FinishTime.ToString("yyyy-MM-dd HH:mm:ss"));
+                cmd.Parameters.AddWithValue("@admin", admin);
+                cmd.Parameters.AddWithValue("@id", data.SurveyId);
+                cmd.ExecuteNonQuery();
+                result = 1;
+            }
+            catch (Exception e)
+            {
+                result = 0;
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                cmd = null;
+                conn.Close();
+            }
+            return result;
+        }
+        //***************************************************
+        //설문지 삭제 1:성공 0:실패
+        //*************************************************** 
+        public int DeleteSelectSurvey(string Dataid)
+        {
+            string sql = "Delete from sasu_suv where suv_suvid =" + Dataid;
+            connectionOpen();
+            int result = 0;
+            try
+            {
+                cmd = new MySqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+                result = 1; 
+            }catch(Exception e)
+            {
+                result = 0;
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                cmd = null;
+                conn.Close();
+            }
+            return result; 
+        }
+        //***************************************************
+        //설문지 조회 1:성공 0:실패
+        //*************************************************** 
+        public void SelectSelectSurvey(BindingList<SelectSurveyViewModel> myViewModel)
+        {
+            string sql = "Select * from sasu_suv";
+            connectionOpen();
+            try
+            {
+                cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                myViewModel.Clear();
+                while (reader.Read())
+                {
+                    SelectSurveyViewModel Temp = new SelectSurveyViewModel
+                    {
+                        SurveyCode = "S",
+                        SurveyName = reader["suv_name"].ToString(),
+                        SurveyDescrip = reader["suv_descrip"].ToString(),
+                        SurveyId = reader["suv_suvid"].ToString(),
+                        StartTime = Convert.ToDateTime(reader["suv_stime"]),
+                        FinishTime = Convert.ToDateTime(reader["suv_ftime"]),
+                    };
+                    myViewModel.Insert(myViewModel.Count, Temp);
+                }
+            }catch(Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                cmd = null;
+                conn.Close();
+            }
+        }
+        #endregion
     }
 }
