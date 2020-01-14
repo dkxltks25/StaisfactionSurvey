@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Survey"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="AdminMainPage" Height="552" Width="870.909" WindowStartupLocation="CenterScreen">
+        Title="AdminMainPage" Height="314.045" Width="649.555" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.3*"/>
@@ -19,7 +19,7 @@
         </Grid.RowDefinitions>
         <materialDesign:Card Grid.ColumnSpan="2">
             <Canvas>
-                
+
             </Canvas>
         </materialDesign:Card>
         <TreeView Grid.Column="0" Grid.Row="1" SelectedItemChanged="TreeView_SelectedItemChanged">
@@ -31,11 +31,9 @@
             </TreeViewItem>
             <TreeViewItem Header="부서" Background="{x:Null}">
                 <TreeViewItem  Header="부서 관리" Background="{x:Null}" />
-                <TreeViewItem Header="부서 등록"/>
             </TreeViewItem>
             <TreeViewItem Header="설문지" Background="{x:Null}">
                 <TreeViewItem Header="설문지조회" Background="{x:Null}" />
-                <TreeViewItem Header="설문지생성" />
             </TreeViewItem>
             <TreeViewItem Header="관리자">
                 <TreeViewItem Header="관리자 관리"/>

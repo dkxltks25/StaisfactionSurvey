@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Survey.SurveyTool"
-      
         mc:Ignorable="d"
+         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Title="SelectSurvey" Height="800" Width="1146" WindowState="Maximized">
     <Grid>
@@ -68,6 +68,7 @@
                       EnableRowVirtualization="False"
                       AutoGenerateColumns="False" 
                       CanUserDeleteRows="True" SelectionChanged="DG1_SelectionChanged"
+                FrozenColumnCount="2"
                >
                 <DataGrid.Columns>
                     <materialDesign:DataGridTextColumn Binding="{Binding SurveyCode}" Header="입력구분" CanUserReorder="True" IsReadOnly="True"   />
@@ -79,7 +80,7 @@
                     <DataGridTemplateColumn Width="100" Header="설문지 작성 및 수정" >
                         <DataGridTemplateColumn.CellTemplate >
                             <DataTemplate>
-                                <Button x:Name="DG1Button" Content="설문지 작성하기"></Button>
+                                <Button x:Name="DG1Button" Content="설문지 작성하기" Click="DG1Button_Click"></Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -113,9 +114,15 @@
                     <ColumnDefinition Width="0.3*"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <DataGrid Name="LDG">
+                <DataGrid Name="LDG" SelectionChanged="LDG_SelectionChanged"
+                      SelectionMode="Extended"
+                      CanUserAddRows="False" 
+                      CanUserResizeColumns="False" 
+                      CanUserSortColumns="True" 
+                      EnableRowVirtualization="False"
+                      AutoGenerateColumns="False" >
                     <DataGrid.Columns>
-                        <materialDesign:DataGridTextColumn Binding="{Binding InputCode}" Header="위치구분" CanUserReorder="True" IsReadOnly="True"/>
+                        <materialDesign:DataGridTextColumn Binding="{Binding DeptCode}" Header="위치구분" CanUserReorder="True" IsReadOnly="True"/>
                         <materialDesign:DataGridTextColumn Binding="{Binding DeptName}" Header="부서 및 학과명" CanUserReorder="True" IsReadOnly="True"/>
                     </DataGrid.Columns>
                 </DataGrid>
@@ -123,17 +130,23 @@
                         Margin="10,0" 
                        >
                     <StackPanel VerticalAlignment="Center">
-                        <Button Margin="10">
+                        <Button Margin="10" Click="Button_Click">
                             <materialDesign:PackIcon Kind="ArrowRight" Width="AUTO" Height="AUTO"/>
                         </Button>
-                        <Button Margin="10">
+                        <Button Margin="10" Click="Button_Click_1">
                             <materialDesign:PackIcon Kind="ArrowBack" Width="AUTO" Height="AUTO"/>
                         </Button>
                     </StackPanel>
                 </Border>
-                <DataGrid Grid.Column="2" Name="RDG">
+                <DataGrid Grid.Column="2" Name="RDG"
+                      SelectionMode="Extended"    
+                      CanUserAddRows="False" 
+                      CanUserResizeColumns="False" 
+                      CanUserSortColumns="True" 
+                      EnableRowVirtualization="False"
+                      AutoGenerateColumns="False" >
                     <DataGrid.Columns>
-                        <materialDesign:DataGridTextColumn Binding="{Binding InputCode}" Header="입력구분" CanUserReorder="True" IsReadOnly="True"/>
+                        <materialDesign:DataGridTextColumn Binding="{Binding DeptCode}" Header="입력구분" CanUserReorder="True" IsReadOnly="True"/>
                         <materialDesign:DataGridTextColumn Binding="{Binding DeptName}" Header="부서 및 학과명" CanUserReorder="True" IsReadOnly="True"/>
                     </DataGrid.Columns>
                 </DataGrid>
@@ -145,6 +158,14 @@
             Grid.RowSpan="4"
             Header="대시보드"
             Margin="10">
+            <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Left">
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis Title="Salesman" Labels="{Binding Labels}"></lvc:Axis>
+                </lvc:CartesianChart.AxisX>
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Title="Sold Apps" LabelFormatter="{Binding Formatter}"></lvc:Axis>
+                </lvc:CartesianChart.AxisY>
+            </lvc:CartesianChart>
         </GroupBox>
     </Grid>
 

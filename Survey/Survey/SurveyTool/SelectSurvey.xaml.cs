@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -12,6 +13,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using LiveCharts;
+using LiveCharts.Wpf;
 using Survey.ViewModel;
 namespace Survey.SurveyTool
 {
@@ -31,7 +34,37 @@ namespace Survey.SurveyTool
             myViewModel = new BindingList<SelectSurveyViewModel>();
             DG1.ItemsSource = myViewModel;
             DefaultState();
+
+
+
+            SeriesCollection = new SeriesCollection
+            {
+                new ColumnSeries
+                {
+                    Title = "2015",
+                    Values = new ChartValues<double> { 10, 50, 39, 50 }
+                }
+            };
+
+            //adding series will update and animate the chart automatically
+            SeriesCollection.Add(new ColumnSeries
+            {
+                Title = "2016",
+                Values = new ChartValues<double> { 11, 56, 42 }
+            });
+
+            //also adding values updates and animates the chart automatically
+            SeriesCollection[1].Values.Add(48d);
+
+            Labels = new[] { "Maria", "Susan", "Charles", "Frida" };
+            Formatter = value => value.ToString("N");
+
+            DataContext = this;
         }
+
+        public SeriesCollection SeriesCollection { get; set; }
+        public string[] Labels { get; set; }
+        public Func<double, string> Formatter { get; set; }
         #region 화면제어
         //*********************************************
         // 화면 제어를 위한 함수들 (버튼의 ISEnabled를 수정) 
@@ -209,6 +242,22 @@ namespace Survey.SurveyTool
                 {
                     Sql.DeleteSelectSurvey(myViewModel[i].SurveyId);
                 }
+                for(int j = 0; j < myViewModel[i].RDG.Count; j++)
+                {
+                    SelectSurveyViewModel.Dept dept = myViewModel[i].RDG[j];
+                    if (dept.DeptCode == "C")
+                    {
+                        Sql.AddSelectSurvetDept(dept, myViewModel[i].SurveyId);
+                    }
+                }
+                for (int j = myViewModel[i].LDG.Count-1; j >=0; j--)
+                {
+                    SelectSurveyViewModel.Dept dept = myViewModel[i].LDG[j];
+                    if(dept.DeptCode == "C")
+                    {
+                        Sql.DeleteSelectSurveyDept(dept.DeptId,myViewModel[i].SurveyId);
+                    }
+                }
 
             }
             SelectTable();
@@ -238,9 +287,16 @@ namespace Survey.SurveyTool
             SurveyInfo.DataContext = myViewModel[DG1.SelectedIndex];
             Console.WriteLine(myViewModel[DG1.SelectedIndex].FinishTime);
             //학과 등록및 학과 수정
-            if (myViewModel[DG1.SelectedIndex].SurveyCode != "A")
+
+            if (myViewModel[DG1.SelectedIndex].SurveyCode != "A" && myViewModel[DG1.SelectedIndex].SurveyCode != "D")
             {
-               
+                LDG.ItemsSource = myViewModel[DG1.SelectedIndex].LDG;
+                RDG.ItemsSource = myViewModel[DG1.SelectedIndex].RDG;
+            }
+            else
+            {
+                LDG.ItemsSource = new BindingList<SelectSurveyViewModel.Dept>();
+                RDG.ItemsSource = new BindingList<SelectSurveyViewModel.Dept>();
             }
             
         }
@@ -250,6 +306,89 @@ namespace Survey.SurveyTool
 
         }
 
-    
+        private void LDG_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+        //*****************************************************************
+        // LDG 값 이동
+        //*****************************************************************
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            IList items = LDG.SelectedItems;
+            if (items.Count > 1)
+            {
+                List<int> indexArray = new List<int>();
+                foreach (SelectSurveyViewModel.Dept item in items)
+                {
+                    for (int i = 0; i < myViewModel[DG1.SelectedIndex].LDG.Count; i++)
+                    {
+                        if (myViewModel[DG1.SelectedIndex].LDG[i].DeptId == item.DeptId)
+                        {
+                            if (string.IsNullOrEmpty(item.DeptDvision))
+                            {
+                                item.DeptDvision = item.DeptCode;
+                                item.DeptCode = "C";
+                            }
+                            else
+                            {
+                                item.DeptCode = item.DeptDvision;
+                                item.DeptDvision = string.Empty;
+                            }
+                            myViewModel[DG1.SelectedIndex].RDG.Insert(myViewModel[DG1.SelectedIndex].RDG.Count, item);
+                            indexArray.Add(i);
+                        }
+                    }
+        
+                }
+                for (int i = indexArray.Count - 1; i >= 0; i--)
+                {
+                    myViewModel[DG1.SelectedIndex].LDG.RemoveAt(indexArray[i]);
+                }
+            }
+        }
+        //*****************************************************************
+        // RDG값이동
+        //*****************************************************************
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            IList items = RDG.SelectedItems;
+            if (items.Count > 1)
+            {
+                List<int> indexArray = new List<int>();
+                foreach (SelectSurveyViewModel.Dept item in items)
+                {
+                    for (int i = 0; i < myViewModel[DG1.SelectedIndex].RDG.Count; i++)
+                    {
+                        if (myViewModel[DG1.SelectedIndex].RDG[i].DeptId == item.DeptId)
+                        {
+                            if (string.IsNullOrEmpty(item.DeptDvision))
+                            {
+                                item.DeptDvision = item.DeptCode;
+                                item.DeptCode = "C";
+                            }
+                            else
+                            {
+                                item.DeptCode = item.DeptDvision;
+                                item.DeptDvision = string.Empty;
+                          
+                            }
+                            myViewModel[DG1.SelectedIndex].LDG.Insert(myViewModel[DG1.SelectedIndex].LDG.Count, item);
+                            indexArray.Add(i);
+                        }
+                    }
+
+                }
+                for (int i = indexArray.Count - 1; i >= 0; i--)
+                {
+                    myViewModel[DG1.SelectedIndex].RDG.RemoveAt(indexArray[i]);
+                }
+            }
+        }
+
+        private void DG1Button_Click(object sender, RoutedEventArgs e)
+        {
+            new CreateSurvey(myViewModel[DG1.SelectedIndex].SurveyId, myViewModel[DG1.SelectedIndex].SurveyDescrip,myViewModel[DG1.SelectedIndex].SurveyName).ShowDialog();
+        }
     }
 }

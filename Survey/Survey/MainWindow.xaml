@@ -9,12 +9,11 @@
         Title="MainWindow" Height="269" Width="605" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="White">
     <Grid Margin="0,0,2,0">
         <Label Content="아이디" HorizontalAlignment="Right" Margin="0,57,313,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="328,57,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="235" RenderTransformOrigin="0.438,0.478"/>
+        <TextBox x:Name="id" HorizontalAlignment="Left" Height="23" Margin="328,57,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="235" RenderTransformOrigin="0.438,0.478"/>
         <Label Content="패스워드" HorizontalAlignment="Right" Margin="0,97,301,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="328,94,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="235"/>
+        <PasswordBox x:Name="password" HorizontalAlignment="Left" Height="23" Margin="328,94,0,0"  VerticalAlignment="Top" Width="235" PasswordChar="*" ></PasswordBox>
         <Button Content="로그인" HorizontalAlignment="Left" Margin="238,157,0,0" VerticalAlignment="Top" Width="325" Click="Button_Click"/>
-        <CheckBox Content="아이디 저장" HorizontalAlignment="Left" Margin="238,132,0,0" VerticalAlignment="Top"/>
-        <Image Source="LoginImage1.jpg" HorizontalAlignment="Left" Height="218" Margin="10,10,0,10"  Width="209" />
-
+        <CheckBox x:Name ="Check" Content="아이디 저장" HorizontalAlignment="Left" Margin="238,132,0,0" VerticalAlignment="Top" />
+        <Image Source="LoginImage1.jpg" Margin="23,41,381,51"/>
     </Grid>
 </Window>

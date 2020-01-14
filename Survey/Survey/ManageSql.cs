@@ -7,12 +7,23 @@ using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
 using Survey.ViewModel;
 using System.ComponentModel;
+using Newtonsoft.Json.Linq;
+
 namespace Survey
 {
     class ManageSql
     {
-        private static MySqlCommand cmd;
-        private static MySqlConnection conn;
+        /// <summary>
+        /// 관리자 기본정보 
+        /// <br>0 아이디</br>
+        /// <br>1 이름</br>
+        /// <br>2 등급</br>
+        /// 
+        /// </summary>
+        private List<string> myadmin = new List<string>();
+
+        private static MySqlCommand cmd,cmd1,cmd2 ;
+        private static MySqlConnection conn,conn1,conn2;
         private static string server;
         private static string database;
         private static string uid;
@@ -31,6 +42,9 @@ namespace Survey
             connectionString = "SERVER=" + server + ";" + "DATABASE=" +
             database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
             conn = new MySqlConnection(connectionString);
+            conn1 = new MySqlConnection(connectionString);
+            conn2 = new MySqlConnection(connectionString);
+
         }
 
         #region 공통 연결
@@ -41,6 +55,40 @@ namespace Survey
                 conn.Open();
             }
         }
+        #endregion
+        #region 로그인
+        public int AdminLogin(string userid, string userpassword)
+        {
+            string sql = "select * from sasu_adm where adm_id = @id";
+            int result = 0;
+            connectionOpen();
+            try
+            {
+                cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@id", userid);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    if(reader["adm_pw"].ToString() == SHA512(userpassword)){
+                        result=1;
+                        myadmin.Add(reader["adm_id"].ToString());
+                        myadmin.Add(reader["adm_name"].ToString());
+                        myadmin.Add(reader["adm_right"].ToString());
+                    }
+                }
+            }catch(Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                result = 0;
+            }
+            finally
+            {
+                cmd = null;
+                conn.Close();
+            }
+            return result;
+        }
+      
         #endregion
 
         /// <summary>
@@ -632,8 +680,159 @@ namespace Survey
                         StartTime = Convert.ToDateTime(reader["suv_stime"]),
                         FinishTime = Convert.ToDateTime(reader["suv_ftime"]),
                     };
+                    SelectLeftDG(Temp.LDG, Temp.SurveyId);
+                    SelectRightDG(Temp.RDG, Temp.SurveyId);
                     myViewModel.Insert(myViewModel.Count, Temp);
                 }
+            }catch(Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                cmd = null;
+                conn.Close();
+            }
+        }
+
+        //***************************************************
+        //선택되지 않은 부서 조회 1:성공 0:실패
+        //*************************************************** 
+        public void SelectLeftDG(BindingList<SelectSurveyViewModel.Dept> LDG, string id )
+        {
+            string sql = "select * from sasu_dept where dept_id not in (select dept_id from sasu_suvDept where suv_Id = @id)";
+            if(conn1.State == System.Data.ConnectionState.Closed)
+            {
+                conn1.Open();
+            }
+            connectionOpen();
+            try
+            {
+                cmd1 = new MySqlCommand(sql, conn1);
+                cmd1.Parameters.AddWithValue("@id", id);
+                MySqlDataReader reader = cmd1.ExecuteReader();
+                LDG.Clear();
+                while (reader.Read())
+                {
+                    SelectSurveyViewModel.Dept temp = new SelectSurveyViewModel.Dept
+                    {
+                        DeptCode = "L",
+                        DeptId = reader["dept_id"].ToString(),
+                        DeptName = reader["dept_name"].ToString()
+                    };
+                    LDG.Insert(LDG.Count, temp);       
+                }
+            }catch(Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                cmd1 = null;
+                conn1.Close();
+            }
+        }
+        //***************************************************
+        //선택되지 않은 부서 조회 1:성공 0:실패
+        //*************************************************** 
+        public void SelectRightDG(BindingList<SelectSurveyViewModel.Dept> RDG, string id)
+        {
+            string sql = "select * from sasu_suvDept where suv_Id = @id";
+            if (conn2.State == System.Data.ConnectionState.Closed)
+            {
+                conn2.Open();
+            }
+            try
+            {
+                cmd2 = new MySqlCommand(sql, conn2);
+                cmd2.Parameters.AddWithValue("@id", id);
+                MySqlDataReader reader = cmd2.ExecuteReader();
+                RDG.Clear();
+                while (reader.Read())
+                {
+                    SelectSurveyViewModel.Dept temp = new SelectSurveyViewModel.Dept
+                    {
+                        DeptCode = "R",
+                        DeptId = reader["dept_id"].ToString(),
+                        DeptName = reader["dept_name"].ToString()
+                    };
+                    RDG.Insert(RDG.Count, temp);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                cmd2 = null;
+                conn2.Close();
+            }
+        }
+        //***************************************************
+        //선택 부서 삭제 1:성공 0:실패
+        //*************************************************** 
+        public void DeleteSelectSurveyDept(string Deptid,string SurveyId)
+        {
+            string sql = "Delete from sasu_suvDept where dept_id =@dept AND suv_id = @suv";
+            connectionOpen();
+            try
+            {
+                Console.WriteLine(Deptid);
+                Console.WriteLine(SurveyId);
+
+                cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@dept", Deptid);
+                cmd.Parameters.AddWithValue("@suv", SurveyId);
+                cmd.ExecuteNonQuery();
+            }catch(Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                cmd = null;
+                conn.Close();
+            }
+                
+        }
+        //***************************************************
+        //선택 부서 추가
+        //*************************************************** 
+        public void AddSelectSurvetDept(SelectSurveyViewModel.Dept data,string id)
+        {
+            string sql = "insert into sasu_suvDept values(@survid,@deptid, @deptname)";
+            connectionOpen();
+            try
+            {
+                cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@survid", id);
+                cmd.Parameters.AddWithValue("@deptid", data.DeptId);
+                cmd.Parameters.AddWithValue("@deptname", data.DeptName);
+                cmd.ExecuteNonQuery();
+            }catch(Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                cmd = null;
+                conn.Close();
+            }
+        }
+        #endregion
+
+        #region 설문지 생성
+        public void insertSurvey(string item,string SurveyId)
+        {
+            string sql = "insert into sasu_suvitem (suv_id,suv_item) values(@id,@json)";
+            connectionOpen();
+            try
+            {
+                cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@id", SurveyId);
+                cmd.Parameters.AddWithValue("@json", item);
+                cmd.ExecuteNonQuery();
             }catch(Exception e)
             {
                 Console.WriteLine(e.ToString());

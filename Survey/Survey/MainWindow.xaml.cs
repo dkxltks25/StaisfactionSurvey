@@ -23,13 +23,28 @@ namespace Survey
         public MainWindow()
         {
             InitializeComponent();
+            id.Text = Properties.Settings.Default.LoginId;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            AdminMainPage adminmainpage = new AdminMainPage();
-            adminmainpage.ShowDialog();
-           
+            if(Check.IsChecked == true)
+            {
+                Properties.Settings.Default.LoginId = id.Text;
+                Properties.Settings.Default.Save();
+            }
+            ManageSql sql = new ManageSql();
+            if(sql.AdminLogin(id.Text, password.Password)== 1)
+            {
+                AdminMainPage adminmainpage = new AdminMainPage();
+                adminmainpage.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("아이디 혹은 비밀번호를 확인 해주세요");
+            }
+
+
         }
     }
 }

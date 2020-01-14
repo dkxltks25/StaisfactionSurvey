@@ -113,7 +113,7 @@
                 CanUserResizeColumns="False" 
                 CanUserSortColumns="True" 
                 EnableRowVirtualization="False"
-                AutoGenerateColumns="False" >
+                AutoGenerateColumns="False" SelectionChanged="DG2_SelectionChanged" >
             </DataGrid>
         </Border>
         <GroupBox

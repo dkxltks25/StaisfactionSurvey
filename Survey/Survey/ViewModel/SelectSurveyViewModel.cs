@@ -104,6 +104,89 @@ namespace Survey.ViewModel
             }
         }
         #endregion
+        private BindingList<Dept> lDG = new BindingList<Dept>();
+        public BindingList<Dept> LDG
+        {
+            get
+            {
+                return lDG;
+            }
+        }
+        private BindingList<Dept> rDG = new BindingList<Dept>();
+        public BindingList<Dept> RDG
+        {
+            get
+            {
+                return rDG;
+            }
+        }
+        public class Dept
+        {
+            private string code;
+            public string DeptCode
+            {
+                get
+                {
+                    return code;
+                }
+                set
+                {
+                    code = value;
+                    NotifyPropertyChanged("DeptCode");
+                }
+            }
+            private string Name;
+            public string DeptName
+            {
+                get
+                {
+                    return Name;
+                }
+                set
+                {
+                    Name = value;
+                    NotifyPropertyChanged("DeptName");
+                }
+            }
+            private string Id;
+            public string DeptId
+            {
+                get
+                {
+                    return Id;
+                }
+                set
+                {
+                    Id = value;
+                    NotifyPropertyChanged("DeptId");
+                }
+            }
+            private string Dvision;
+            public string DeptDvision
+            {
+                get
+                {
+                    return Dvision;
+                }
+                set
+                {
+                    Dvision = value;
+                    NotifyPropertyChanged("DeptDvision");
+                }
+            }
+            #region 프로퍼티 이벤트 등록
+            public event PropertyChangedEventHandler PropertyChanged;
+            //이벤트 할당
+            protected void NotifyPropertyChanged(string PropertyName)
+            {
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs(PropertyName));
+                }
+            }
+            #endregion
+        }
+
 
         #region 프로퍼티 이벤트 등록
         public event PropertyChangedEventHandler PropertyChanged;

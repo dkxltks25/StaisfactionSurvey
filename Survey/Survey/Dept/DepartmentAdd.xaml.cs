@@ -241,7 +241,7 @@ namespace Survey
             sql.SelectDept(myViewModel, SelectText.Text);
         }
         //*********************************************
-        // 데이터 그리드 서로 다른 행으로 변경 
+        // DG1 데이터 그리드 서로 다른 행으로 변경 
         //*********************************************
         private void DG1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

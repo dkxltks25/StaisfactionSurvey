@@ -34,23 +34,18 @@ namespace Survey
            String HeaderValue = data.Header.ToString();
            if(HeaderValue == "학생관리")
             {
-               // StudentAdmin studentadmin = new StudentAdmin();
-                //studentadmin.Show();
+                new Student.StudentAdmin().Show();
             }
            else if(HeaderValue == "부서 관리")
             {
-                DepartmentAdmin departmentadmin = new DepartmentAdmin();
-                departmentadmin.Show();
+                new DepartmentAdd().Show();
             }
            //설문지 관리
            else if(HeaderValue == "설문지조회")
             {
+                new SurveyTool.SelectSurvey().Show();
             }
-           //설문지 생성
-           else if(HeaderValue == "설문지생성")
-            {
-                
-            }
+           
            else if(HeaderValue == "관리자 관리")
             {
                 AdminManagementPage admp = new AdminManagementPage();
