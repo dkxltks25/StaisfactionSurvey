@@ -8,6 +8,7 @@ using MySql.Data.MySqlClient;
 using Survey.ViewModel;
 using System.ComponentModel;
 using Newtonsoft.Json.Linq;
+using System.IO;
 
 namespace Survey
 {
@@ -822,7 +823,10 @@ namespace Survey
         }
         #endregion
 
-        #region 설문지 생성
+        #region 설문지
+        //***************************************************
+        //설문지 데이터 입력
+        //*************************************************** 
         public void insertSurvey(string item,string SurveyId)
         {
             string sql = "insert into sasu_suvitem (suv_id,suv_item) values(@id,@json)";
@@ -843,6 +847,59 @@ namespace Survey
                 conn.Close();
             }
         }
+        //***************************************************
+        //설문지 데이터 업데이트
+        //*************************************************** 
+        public void updateSurvey(string item, string SurveyId)
+        {
+            string sql = "update sasu_suvitem set suv_item =@json where suv_id =@id";
+            connectionOpen();
+            try
+            {
+                cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@id", SurveyId);
+                cmd.Parameters.AddWithValue("@json", item);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                cmd = null;
+                conn.Close();
+            }
+        }
+        //***************************************************
+        //설문지 조회
+        //*************************************************** 
+        public string selectSurvey(string SurveyId)
+        {
+            string sql = "select * from sasu_suvitem where suv_id ="+SurveyId;
+            string data = string.Empty;
+            connectionOpen();
+            try
+            {
+                cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    Console.WriteLine(reader["suv_item"].ToString());
+                    data = Encoding.UTF8.GetString((byte[])reader["suv_item"]);
+                }
+            }catch(Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                cmd = null;
+                conn.Close();
+            }
+            return data; 
+        }
         #endregion
+
     }
 }

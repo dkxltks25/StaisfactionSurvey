@@ -31,8 +31,9 @@ namespace Survey.SurveyTool
         private string s_id = "";
         private string s_name = "";
         private string s_descrip = "";
-        
-
+        private string Data = "";
+        //0 신규 1 기존
+        private int State = 0;
         public CreateSurvey(string id, string name,string Descript)
         {
             InitializeComponent();
@@ -41,10 +42,77 @@ namespace Survey.SurveyTool
             s_id = id;
             s_name = name;
             s_descrip = Descript;
-
+            ManageSql Sql = new ManageSql();
+            Data = Sql.selectSurvey(s_id);
+            if (!string.IsNullOrEmpty(Data))
+            {
+                State = 1;
+                LoadSurvey(Data);
+                
+            }
             //ConnectWeb();
             //CreateTableColumn();
 
+        }
+        //***********************************************
+        //저장된 설문지 데이터 불러오기
+        //***********************************************
+        private void LoadSurvey(string json)
+        {
+            JObject Data = JObject.Parse(json);
+            Console.WriteLine(Data["item"]);
+            foreach(JObject item in Data["item"])
+            {
+                SurveyViewModel temp = new SurveyViewModel();
+                temp.SurveyDescrip = string.IsNullOrEmpty(item["Descrip"].ToString()) ? "" : item["Descrip"].ToString();
+                temp.SurveyTitle = item["Title"].ToString();
+                temp.SurveyOption = item["OptionName"].ToString();
+                //객관식
+                if (item["Option"].ToString() == "2")
+                {
+                    JArray items = JArray.Parse(item["item"].ToString());
+                    for(int i = 0; i < items.Count; i++)
+                    {
+                        SurveyViewModel.Item tempItem = new SurveyViewModel.Item();
+                        tempItem.SurveyItem = items[i].ToString();
+                        temp.SurveyItem.Insert(temp.SurveyItem.Count, tempItem);
+                    }
+                }
+                //객관식2
+                if (item["Option"].ToString() == "3")
+                {
+                    JArray items = JArray.Parse(item["item"].ToString());
+                    for (int i = 0; i < items.Count; i++)
+                    {
+                        SurveyViewModel.Item tempItem = new SurveyViewModel.Item();
+                        tempItem.SurveyItem = items[i].ToString();
+                        temp.SurveyItem.Insert(temp.SurveyItem.Count, tempItem);
+                    }
+                }
+                //그리드
+                if (item["Option"].ToString() == "4")
+                {
+                    JObject items = JObject.Parse(item["item"].ToString());
+                    JArray row = JArray.Parse(items["Row"].ToString());
+                    JArray Column = JArray.Parse(items["Column"].ToString());
+
+                    for (int i = 0; i < row.Count; i++)
+                    {
+                        SurveyViewModel.Item tempItem = new SurveyViewModel.Item();
+
+                        tempItem.SurveyRow = row[i].ToString();
+                        temp.SurveyItem.Insert(temp.SurveyItem.Count,tempItem);
+                    }
+                    for (int i = 0; i < Column.Count; i++)
+                    {
+                        SurveyViewModel.Item tempItem = new SurveyViewModel.Item();
+                        tempItem.SurveyColumn = Column[i].ToString();
+                        temp.SurveyItem.Insert(temp.SurveyItem.Count, tempItem);
+
+                    }
+                }
+                myViewModel.Insert(myViewModel.Count, temp);
+            }
         }
         public void ConnectWeb(string json)
         {
@@ -131,10 +199,20 @@ namespace Survey.SurveyTool
             string str_json = JsonConvert.SerializeObject(FormData);
             string Url = "&Collection=" + str_json;
             ConnectWeb(Url);
-            Console.WriteLine(Url);
             ManageSql Sql = new ManageSql();
-            Sql.insertSurvey(str_json, s_id);
-        }
+            Console.WriteLine(s_id);
+            //저장
+            if (State == 0)
+            {
+                Sql.insertSurvey(str_json, s_id);
+            }
+            //업데이트
+            if(State == 1)
+            {
+                Sql.updateSurvey(str_json, s_id);
+            }
+
+        }   
 
         #region 데이터 그리드 뷰 제어
 
@@ -144,22 +222,29 @@ namespace Survey.SurveyTool
         private void DG1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //SurveyOption값
-            switch (myViewModel[DG1.SelectedIndex].SurveyOption)
+            try
             {
-               
-                case "객관식1":
-                    CreateTableColumn(1);
-                    break;
-                case "객관식2":
-                    CreateTableColumn(2);
-                    break;
-                case "그리드":
-                    CreateTableColumn(3);
-                    break;
-                default:
-                    CreateTableColumn(0);
-                    break;
+                switch (myViewModel[DG1.SelectedIndex].SurveyOption)
+                {
+
+                    case "객관식1":
+                        CreateTableColumn(1);
+                        break;
+                    case "객관식2":
+                        CreateTableColumn(2);
+                        break;
+                    case "그리드":
+                        CreateTableColumn(3);
+                        break;
+                    default:
+                        CreateTableColumn(0);
+                        break;
+                }
+            }catch(Exception e1)
+            {
+                Console.WriteLine(e1.ToString());
             }
+            
 
         }
         //***********************************************
@@ -255,22 +340,29 @@ namespace Survey.SurveyTool
         //***********************************************
         private void DG1_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
-            DG2.ItemsSource = myViewModel[DG1.SelectedIndex].SurveyItem;
-            switch (myViewModel[DG1.SelectedIndex].SurveyOption)
+            try
             {
+                DG2.ItemsSource = myViewModel[DG1.SelectedIndex].SurveyItem;
+                switch (myViewModel[DG1.SelectedIndex].SurveyOption)
+                {
 
-                case "객관식1":
-                    ChangedColumnName(1);
-                    break;
-                case "객관식2":
-                    ChangedColumnName(2);
-                    break;
-                case "그리드":
-                    ChangedColumnName(3);
-                    break;
-                default:
-                    ChangedColumnName(0);
-                    break;
+                    case "객관식1":
+                        ChangedColumnName(1);
+                        break;
+                    case "객관식2":
+                        ChangedColumnName(2);
+                        break;
+                    case "그리드":
+                        ChangedColumnName(3);
+                        break;
+                    default:
+                        ChangedColumnName(0);
+                        break;
+                }
+            }
+            catch (Exception e2)
+            {
+                Console.WriteLine(e2.ToString());
             }
         }
         //***********************************************
