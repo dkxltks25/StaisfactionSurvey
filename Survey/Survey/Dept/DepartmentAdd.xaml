@@ -54,9 +54,10 @@
             Grid.Row="1" 
             Grid.RowSpan="2"  
             Margin="10" 
-            BorderBrush="Aqua"
-            BorderThickness="2">
+            BorderBrush="#FF673AB7"
+            BorderThickness="3">
             <DataGrid 
+                
                 Name="DG1"
                 CanUserAddRows="False" 
                       CanUserResizeColumns="False" 

@@ -157,6 +157,7 @@ namespace Survey
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
             AdminInfo.IsEnabled = true;
+            adminId.IsEnabled = false;
             Console.WriteLine("***************수정*********************");
 
             BtnState = 1;
@@ -191,12 +192,14 @@ namespace Survey
             {
                 myViewModel[DG1.SelectedIndex].AdminDivision = myViewModel[DG1.SelectedIndex].AdminCode;
                 myViewModel[DG1.SelectedIndex].AdminCode = "D";
+                sql.DeleteAdmin(myViewModel[DG1.SelectedIndex].AdminId);
                 Console.WriteLine(myViewModel[DG1.SelectedIndex].AdminDivision);
 
             }
             reset();
             DefaultButtonState();
             AdminInfo.IsEnabled = true;
+            sql.SelectAdmin(myViewModel);
         }
         //***************************************************
         //Check 버튼 클릭
@@ -230,6 +233,7 @@ namespace Survey
                 myViewModel.Insert(ItemCount, TempData);
                 int result = sql.createAdmin(TempData, "dkxltks25");
                 Console.WriteLine(result);
+                sql.SelectAdmin(myViewModel);
             }
             if(BtnState == 1)
             {
@@ -278,7 +282,7 @@ namespace Survey
             AdminInfo.DataContext = new AdminViewModel();
             DefaultButtonState();
             reset();
-
+            sql.SelectAdmin(myViewModel);
         }
 
         //Cancel 버튼 클릭

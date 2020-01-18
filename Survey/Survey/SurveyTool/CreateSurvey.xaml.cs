@@ -26,7 +26,6 @@ namespace Survey.SurveyTool
     {
         
         BindingList<SurveyViewModel> myViewModel;
-        string json = @"&Collection=" + "{\"Title\":{\"Title\":\"123\",\"Descrip\":\"123\"},\"item\":[{\"Title\":\"단답형\",\"Descrip\":\"설명\",\"Option\":\"0\",\"OptionName\":\"단답형\"},{\"Title\":\"장문형\",\"Descrip\":\"장문에 대한 서명을 적어주세요\",\"Option\":\"1\",\"OptionName\":\"장문형\"},{\"Title\":\"객관식 지문입니다.\",\"Option\":\"2\",\"OptionName\":\"객관식\",\"item\":[\"지문1\",\"지문2\",\"지문3\",\"지문4\",\"지문5\"]},{\"Title\":\"체크박스테스트\",\"Option\":\"3\",\"OptionName\":\"체크박스\"},{\"Title\":\"직선단계 테스트\",\"Option\":\"4\",\"OptionName\":\"직선단계\",\"item\":{\"Row\":[\"만족\",\"불만족\"],\"Column\":[\"얼마나 만족\",\"만족\"]}}]}";
 
         private string s_id = "";
         private string s_name = "";
@@ -60,65 +59,80 @@ namespace Survey.SurveyTool
         private void LoadSurvey(string json)
         {
             JObject Data = JObject.Parse(json);
-            Console.WriteLine(Data["item"]);
-            foreach(JObject item in Data["item"])
+            //Console.WriteLine(Data["item"]);
+            try
             {
-                SurveyViewModel temp = new SurveyViewModel();
-                temp.SurveyDescrip = string.IsNullOrEmpty(item["Descrip"].ToString()) ? "" : item["Descrip"].ToString();
-                temp.SurveyTitle = item["Title"].ToString();
-                temp.SurveyOption = item["OptionName"].ToString();
-                //객관식
-                if (item["Option"].ToString() == "2")
+                foreach (JObject item in Data["item"])
                 {
-                    JArray items = JArray.Parse(item["item"].ToString());
-                    for(int i = 0; i < items.Count; i++)
+                    if (string.IsNullOrEmpty(item["Option"].ToString()))
                     {
-                        SurveyViewModel.Item tempItem = new SurveyViewModel.Item();
-                        tempItem.SurveyItem = items[i].ToString();
-                        temp.SurveyItem.Insert(temp.SurveyItem.Count, tempItem);
-                    }
-                }
-                //객관식2
-                if (item["Option"].ToString() == "3")
-                {
-                    JArray items = JArray.Parse(item["item"].ToString());
-                    for (int i = 0; i < items.Count; i++)
-                    {
-                        SurveyViewModel.Item tempItem = new SurveyViewModel.Item();
-                        tempItem.SurveyItem = items[i].ToString();
-                        temp.SurveyItem.Insert(temp.SurveyItem.Count, tempItem);
-                    }
-                }
-                //그리드
-                if (item["Option"].ToString() == "4")
-                {
-                    JObject items = JObject.Parse(item["item"].ToString());
-                    JArray row = JArray.Parse(items["Row"].ToString());
-                    JArray Column = JArray.Parse(items["Column"].ToString());
-
-                    for (int i = 0; i < row.Count; i++)
-                    {
-                        SurveyViewModel.Item tempItem = new SurveyViewModel.Item();
-
-                        tempItem.SurveyRow = row[i].ToString();
-                        temp.SurveyItem.Insert(temp.SurveyItem.Count,tempItem);
-                    }
-                    for (int i = 0; i < Column.Count; i++)
-                    {
-                        SurveyViewModel.Item tempItem = new SurveyViewModel.Item();
-                        tempItem.SurveyColumn = Column[i].ToString();
-                        temp.SurveyItem.Insert(temp.SurveyItem.Count, tempItem);
 
                     }
+                    else
+                    {
+                        SurveyViewModel temp = new SurveyViewModel();
+                        //temp.SurveyDescrip = string.IsNullOrEmpty(item["Descrip"].ToString()) ? "" : item["Descrip"].ToString();
+                        temp.SurveyTitle = item["Title"].ToString();
+                        temp.SurveyOption = item["OptionName"].ToString();
+                        //객관식
+                        if (item["Option"].ToString() == "2")
+                        {
+                            JArray items = JArray.Parse(item["item"].ToString());
+                            for (int i = 0; i < items.Count; i++)
+                            {
+                                SurveyViewModel.Item tempItem = new SurveyViewModel.Item();
+                                tempItem.SurveyItem = items[i].ToString();
+                                temp.SurveyItem.Insert(temp.SurveyItem.Count, tempItem);
+                            }
+                        }
+                        //객관식2
+                        if (item["Option"].ToString() == "3")
+                        {
+                            JArray items = JArray.Parse(item["item"].ToString());
+                            for (int i = 0; i < items.Count; i++)
+                            {
+                                SurveyViewModel.Item tempItem = new SurveyViewModel.Item();
+                                tempItem.SurveyItem = items[i].ToString();
+                                temp.SurveyItem.Insert(temp.SurveyItem.Count, tempItem);
+                            }
+                        }
+                        //그리드
+                        if (item["Option"].ToString() == "4")
+                        {
+                            JObject items = JObject.Parse(item["item"].ToString());
+                            JArray row = JArray.Parse(items["Row"].ToString());
+                            JArray Column = JArray.Parse(items["Column"].ToString());
+
+                            for (int i = 0; i < row.Count; i++)
+                            {
+                                SurveyViewModel.Item tempItem = new SurveyViewModel.Item();
+
+                                tempItem.SurveyRow = row[i].ToString();
+                                temp.SurveyItem.Insert(temp.SurveyItem.Count, tempItem);
+                            }
+                            for (int i = 0; i < Column.Count; i++)
+                            {
+                                SurveyViewModel.Item tempItem = new SurveyViewModel.Item();
+                                tempItem.SurveyColumn = Column[i].ToString();
+                                temp.SurveyItem.Insert(temp.SurveyItem.Count, tempItem);
+
+                            }
+                        }
+                        myViewModel.Insert(myViewModel.Count, temp);
+                    }
                 }
-                myViewModel.Insert(myViewModel.Count, temp);
+            }catch(Exception e)
+            {
+                Console.WriteLine(e.ToString());
             }
         }
         public void ConnectWeb(string json)
         {
             string url = "file:///C:/Users/USER/Desktop/survey/Form.html?"+json;
-            Console.WriteLine(url);
-            web.Navigate(url);
+            //Console.WriteLine(url);
+            //web.Navigate(url);
+            Uri u = new Uri(url);
+            web.Navigate(u);
         }
        
         private void InfoButton_Click(object sender, RoutedEventArgs e)
@@ -164,7 +178,7 @@ namespace Survey.SurveyTool
                     var SurveyItemRowAndColumn = new JObject();
                     for (int j = 0; j < myViewModel[i].SurveyItem.Count; j++)
                     {
-                        if (myViewModel[i].SurveyOption == "객관식1" || myViewModel[i].SurveyOption == "객관식2")
+                        if (myViewModel[i].SurveyOption == "객관식1" || myViewModel[i].SurveyOption == "객관식2"  )
                         {
                             SurveyItem.Add(myViewModel[i].SurveyItem[j].SurveyItem);
 
@@ -198,9 +212,10 @@ namespace Survey.SurveyTool
             FormData.Add("item", Item);
             string str_json = JsonConvert.SerializeObject(FormData);
             string Url = "&Collection=" + str_json;
+            Console.WriteLine(str_json);
             ConnectWeb(Url);
             ManageSql Sql = new ManageSql();
-            Console.WriteLine(s_id);
+            //Console.WriteLine(s_id);
             //저장
             if (State == 0)
             {

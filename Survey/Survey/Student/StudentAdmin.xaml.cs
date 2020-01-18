@@ -18,6 +18,7 @@ using ExcelDataReader;
 using Excel = Microsoft.Office.Interop.Excel;
 using Survey.ViewModel;
 using System.Reflection;
+using MaterialDesignThemes.Wpf;
 
 namespace Survey.Student
 {
@@ -127,7 +128,7 @@ namespace Survey.Student
         //*********************************************
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Sql.SelectStudent(myViewModel);
         }
         //*********************************************
         //추가  버튼 클릭
@@ -385,12 +386,23 @@ namespace Survey.Student
         #region 엑셀 정보처리 영역
         //*********************************************
         //엑셀파일 윈도우 드래그
-        //*********************************************
+        //*********************************************\
+        private Brush CurrentColor;
         private void Window_Drop(object sender, DragEventArgs e)
         {
             String File = System.IO.Path.GetFullPath(((string[])(e.Data.GetData(e.Data.GetFormats()[7])))[0].ToString());
             ExcelRead(File);
+           
+
         }
+         private void Window_DragOver(object sender,DragEventArgs e)
+        {
+            Console.WriteLine("드래그중");
+            var myMessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(8000));
+            MySnackbar.MessageQueue = myMessageQueue;
+            MySnackbar.MessageQueue.Enqueue("엑셀데이터 저장하는중");
+        }
+        //public SnackbarMessageQueue(TimeSpan messageDuration)
 
         //*********************************************
         //엑셀파일 읽기
@@ -429,7 +441,6 @@ namespace Survey.Student
                 };
                 myViewModel.Insert(myViewModel.Count,Data);
             }
-
         }
         //*********************************************
         // 엑셀 파일 만들기 
@@ -487,5 +498,6 @@ namespace Survey.Student
         }
     }
 }
+
 
 

@@ -6,10 +6,12 @@
         xmlns:local="clr-namespace:Survey.Student"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="StudentAdmin" Height="450" Width="946.985"
+        Title="StudentAdmin" Height="450" Width="946.985"       
         DragDrop.Drop="Window_Drop"
+        DragDrop.DragOver="Window_DragOver"
         AllowDrop="True"
         Topmost="True"
+        
         >
     <Grid Margin="0,0,2,0">
         <Grid.ColumnDefinitions>
@@ -21,7 +23,7 @@
             <RowDefinition Height="0.4*"/>
             <RowDefinition/>
             <RowDefinition/>
-            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.3*"/>
         </Grid.RowDefinitions>
         <materialDesign:Card
             Grid.ColumnSpan="3">
@@ -61,6 +63,8 @@
                 </WrapPanel>
             </Grid>
         </materialDesign:Card>
+        <materialDesign:Snackbar x:Name="MySnackbar" Grid.Row="3" Grid.ColumnSpan="3" >
+        </materialDesign:Snackbar>
         <Border 
             Grid.Row="1" 
             Grid.RowSpan="2"  
@@ -129,4 +133,6 @@
             </Canvas>
         </GroupBox>
     </Grid>
+
+    
 </Window>

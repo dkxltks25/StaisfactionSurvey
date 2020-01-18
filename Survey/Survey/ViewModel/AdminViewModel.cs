@@ -113,7 +113,7 @@ namespace Survey.ViewModel
                 NotifyPropertyChanged("AdminDivision");
             }
         }
-        private DateTime createAt;
+        private DateTime createAt = DateTime.Now;
         public DateTime AdminCreateAt{
             get
             {

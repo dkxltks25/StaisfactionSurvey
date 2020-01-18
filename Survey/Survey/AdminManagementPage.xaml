@@ -28,7 +28,7 @@
                         <materialDesign:PackIcon Kind="Information" Width="AUTO" Height="AUTO"/>
                     </Button>
                     <Button x:Name="SelectButton"  Height="Auto" Margin="10,10,0,10" Width="66" Click="SelectButton_Click" >
-                        <materialDesign:PackIcon Kind="Select" Width="AUTO" Height="AUTO"/>
+                        <materialDesign:PackIcon Kind="FileSearch" Width="AUTO" Height="AUTO"/>
                     </Button>
 
                     <Button x:Name="AddButton"  Height="Auto" Margin="10,10,0,10" Width="66" Click="AddButton_Click" IsEnabled="{Binding Path=AddEnabled}">
@@ -50,6 +50,7 @@
             </DockPanel>
         </materialDesign:Card>
         <GroupBox 
+            BorderThickness="3"
             Margin="10 10 10 10 "
             Grid.Column="3"
             Grid.Row="1" 
@@ -76,8 +77,8 @@
             </Canvas>
         </GroupBox>
         <Border
-            BorderBrush="Aqua"
-            BorderThickness="2"
+            BorderBrush="#FF673AB7"
+            BorderThickness="3"
             Grid.Column="0"
             Grid.Row="1"
             Grid.RowSpan="2"
@@ -91,6 +92,7 @@
                       AutoGenerateColumns="False" 
                       SelectionChanged="DG1_SelectionChanged"
                       CanUserDeleteRows="True"      
+                      FrozenColumnCount="2"
                       >
                 
                 <DataGrid.Columns>

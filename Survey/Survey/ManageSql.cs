@@ -215,6 +215,29 @@ namespace Survey
             return 0;
         }
         //***************************************************
+        //관리자 삭제
+        //***************************************************
+        public int DeleteAdmin(string AdminId)
+        {
+            int Result = 0;
+            string Sql = "delete from sasu_adm where adm_id = '" + AdminId + "'";
+            try
+            {
+                connectionOpen();
+                cmd = new MySqlCommand(Sql, conn);
+                cmd.ExecuteNonQuery();
+                Result = 1;
+            }catch(Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return Result;
+        }
+        //***************************************************
         //관리자 조회
         //***************************************************
         public void SelectAdmin(BindingList<AdminViewModel> myViewModel)
@@ -238,8 +261,8 @@ namespace Survey
                         AdminName = reader["adm_name"].ToString(),
                         AdminDivision = "S",
                         AdminSGrade = reader["adm_right"].ToString(),
+                        AdminCreateAt = Convert.ToDateTime(reader["datasys"]),
 
-                    
 
                     };
                     myViewModel.Insert(myViewModel.Count, temp);
@@ -332,6 +355,7 @@ namespace Survey
             {
                 connectionOpen();
                 cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@id", data.DeptId);
                 result = cmd.ExecuteNonQuery();
             }
             catch (Exception e)
@@ -426,7 +450,7 @@ namespace Survey
                 cmd.Parameters.AddWithValue("@dept", Data.StudentDept);
                 cmd.Parameters.AddWithValue("@phone", Data.StudentPhone);
                 cmd.Parameters.AddWithValue("@email", Data.StudentEmail);
-                cmd.Parameters.AddWithValue("@password", SHA512(Data.StudentResNumber));
+                cmd.Parameters.AddWithValue("@password", SHA512(Data.StudentResNumber1));
                 cmd.Parameters.AddWithValue("@admin", Admin);
                 cmd.ExecuteNonQuery();
                 result = 1;

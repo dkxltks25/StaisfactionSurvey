@@ -154,11 +154,13 @@ namespace Survey
                 else if (myViewModel[Index].DeptCode == "D")
                 {
                     myViewModel[Index].DeptCode = myViewModel[Index].DeptDivision;
+                    DefaultState();
                 }
                 else
                 {
                     myViewModel[Index].DeptDivision = myViewModel[Index].DeptCode;
                     myViewModel[Index].DeptCode = "D";
+                    checkState();
 
                 }
             }
@@ -268,7 +270,6 @@ namespace Survey
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            //CreateExcel();
         }
     }
 }
