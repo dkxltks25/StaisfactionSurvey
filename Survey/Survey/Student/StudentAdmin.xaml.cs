@@ -19,6 +19,10 @@ using Excel = Microsoft.Office.Interop.Excel;
 using Survey.ViewModel;
 using System.Reflection;
 using MaterialDesignThemes.Wpf;
+using ToastNotifications;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Position;
+using ToastNotifications.Messages;
 
 namespace Survey.Student
 {
@@ -34,15 +38,20 @@ namespace Survey.Student
         string[] TempData = new string[9];
         //관리자
         string admin = "dkxltks25:박재홍";
+
+        //현재 윈도우
+        
         //데이터베이스 선언
         private ManageSql Sql = new ManageSql();
         public StudentAdmin()
         {
             InitializeComponent();
+            Application.Current.MainWindow = this;
             DefaultState();
             myViewModel = new BindingList<StudentAdminViewModel>();
             DG1.ItemsSource = myViewModel;
             StudentInfo.DataContext = new StudentAdminViewModel();
+            
         }
         #region 화면제어
         //*********************************************
@@ -122,7 +131,23 @@ namespace Survey.Student
             studentResNo1.Text = "";
         }
         #endregion
+        #region toast제어
+        Notifier notifier = new Notifier(cfg =>
+        {
+            cfg.PositionProvider = new WindowPositionProvider(
+                
+                parentWindow: Application.Current.MainWindow,
+                corner: Corner.BottomRight,
+                offsetX: 10,
+                offsetY: 10);
 
+            cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+                notificationLifetime: TimeSpan.FromSeconds(3),
+                maximumNotificationCount: MaximumNotificationCount.FromCount(5));
+
+            cfg.Dispatcher = Application.Current.Dispatcher;
+        });
+        #endregion
         //*********************************************
         //검색 버튼 클릭
         //*********************************************
@@ -313,6 +338,13 @@ namespace Survey.Student
             Sql.SelectStudent(myViewModel);
         }
         //*********************************************
+        //저장 버튼 클릭
+        //*********************************************
+        private void LoadButton_Click(object sender, RoutedEventArgs e)
+        {
+            CreateExcel();
+        }
+        //*********************************************
         //데이터 그리드뷰 전체 읽기
         //*********************************************
         private void ReadDataGridView()
@@ -397,10 +429,6 @@ namespace Survey.Student
         }
          private void Window_DragOver(object sender,DragEventArgs e)
         {
-            Console.WriteLine("드래그중");
-            var myMessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(8000));
-            MySnackbar.MessageQueue = myMessageQueue;
-            MySnackbar.MessageQueue.Enqueue("엑셀데이터 저장하는중");
         }
         //public SnackbarMessageQueue(TimeSpan messageDuration)
 
@@ -441,6 +469,7 @@ namespace Survey.Student
                 };
                 myViewModel.Insert(myViewModel.Count,Data);
             }
+            notifier.ShowSuccess("엑셀파일을 성공적으로 불러왔습니다");
         }
         //*********************************************
         // 엑셀 파일 만들기 
@@ -483,17 +512,19 @@ namespace Survey.Student
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(excelApp);
                 excelApp = null;
                 Console.WriteLine("성공");
+                notifier.ShowSuccess("성공적으로 다운 받으셨습니다(문서폴더를 열어보세요)");
             }
 
             catch
             {
-                MessageBox.Show("Excel 파일 저장중 에러가 발생했습니다.");
+                notifier.ShowError("Excel 파일 저장 도중에 에러가 발생했습니다(이미 파일을 내려받으셨다면 문서폴더를 열어보십시오)");
             }
         }
         #endregion
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            Sql.SearchStudent(myViewModel,search_text.Text);
 
         }
     }

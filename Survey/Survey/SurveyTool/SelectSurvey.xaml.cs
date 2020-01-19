@@ -27,39 +27,18 @@ namespace Survey.SurveyTool
         public int btn_state = 0;
         string[] tempArray = new string[3];
         ManageSql Sql = new ManageSql();
+        //Application.Current.MainWindow = this;
+
         public SelectSurvey()
         {
             InitializeComponent();
+            Application.Current.MainWindow = this;
+
             SurveyInfo.DataContext = new SelectSurveyViewModel();
             myViewModel = new BindingList<SelectSurveyViewModel>();
             DG1.ItemsSource = myViewModel;
             DefaultState();
-
-
-
-            SeriesCollection = new SeriesCollection
-            {
-                new ColumnSeries
-                {
-                    Title = "2015",
-                    Values = new ChartValues<double> { 10, 50, 39, 50 }
-                }
-            };
-
-            //adding series will update and animate the chart automatically
-            SeriesCollection.Add(new ColumnSeries
-            {
-                Title = "2016",
-                Values = new ChartValues<double> { 11, 56, 42 }
-            });
-
-            //also adding values updates and animates the chart automatically
-            SeriesCollection[1].Values.Add(48d);
-
-            Labels = new[] { "Maria", "Susan", "Charles", "Frida" };
-            Formatter = value => value.ToString("N");
-
-            DataContext = this;
+            
         }
 
         public SeriesCollection SeriesCollection { get; set; }
@@ -165,14 +144,12 @@ namespace Survey.SurveyTool
             btn_state = 2;
             checkState();
         }
-
         //*****************************************************************
         // 확인 버튼 클릭 
         //*****************************************************************
         private void CheckButton_Click(object sender, RoutedEventArgs e)
         { 
             SelectSurveyViewModel data = (SelectSurveyViewModel)SurveyInfo.DataContext;
-
             if(btn_state == 0)
             {
                 Console.WriteLine(data.SurveyName);
@@ -180,6 +157,7 @@ namespace Survey.SurveyTool
                 {
                     SurveyCode = "A",
                     SurveyName = data.SurveyName,
+                    SurveyDescrip = data.SurveyDescrip,
                     StartTime = data.StartTime,
                     FinishTime = data.FinishTime
                 };
@@ -212,14 +190,16 @@ namespace Survey.SurveyTool
                 {
                     myViewModel.RemoveAt(DG1.SelectedIndex);
                 }
-
             }
             resetText();
         }
-
+        //*****************************************************************
+        // 취소버튼클릭
+        //*****************************************************************
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-
+            DefaultState();
+            resetText();
         }
         //*****************************************************************
         // 저장 버튼 클릭 
@@ -268,21 +248,29 @@ namespace Survey.SurveyTool
         private void SelectTable()
         {
             Sql.SelectSelectSurvey(myViewModel);
+            LDG.ItemsSource = new BindingList<SelectSurveyViewModel.Dept>();
+            RDG.ItemsSource = new BindingList<SelectSurveyViewModel.Dept>();
         }
         private void InfoButton_Click(object sender, RoutedEventArgs e)
         {
 
         }
-
+        //*****************************************************************
+        // 조회버튼 클릭
+        //*****************************************************************
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-
+            SelectTable();
         }
         //*****************************************************************
         // DG1 셀렉트 체인지
         //*****************************************************************
         private void DG1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if(DG1.SelectedIndex < 0)
+            {
+                return;
+            }
             UpdateAndDeleteState();
             SurveyInfo.DataContext = myViewModel[DG1.SelectedIndex];
             Console.WriteLine(myViewModel[DG1.SelectedIndex].FinishTime);
@@ -315,8 +303,13 @@ namespace Survey.SurveyTool
         //*****************************************************************
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+
+            if (DG1.SelectedIndex < 0)
+            {
+                return;
+            }
             IList items = LDG.SelectedItems;
-            if (items.Count > 1)
+            if (items.Count >= 1)
             {
                 List<int> indexArray = new List<int>();
                 foreach (SelectSurveyViewModel.Dept item in items)
@@ -352,8 +345,12 @@ namespace Survey.SurveyTool
         //*****************************************************************
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            if(DG1.SelectedIndex < 0)
+            {
+                return; 
+            }
             IList items = RDG.SelectedItems;
-            if (items.Count > 1)
+            if (items.Count >= 1)
             {
                 List<int> indexArray = new List<int>();
                 foreach (SelectSurveyViewModel.Dept item in items)
@@ -389,6 +386,17 @@ namespace Survey.SurveyTool
         private void DG1Button_Click(object sender, RoutedEventArgs e)
         {
             new CreateSurvey(myViewModel[DG1.SelectedIndex].SurveyId, myViewModel[DG1.SelectedIndex].SurveyDescrip,myViewModel[DG1.SelectedIndex].SurveyName).ShowDialog();
+        }
+
+        private void DownloadExcel_Click(object sender, RoutedEventArgs e)
+        {
+            //myViewModel[DG1.SelectedIndex].SurveyId;
+
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

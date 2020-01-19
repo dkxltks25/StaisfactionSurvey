@@ -39,5 +39,10 @@
                 <TreeViewItem Header="관리자 관리"/>
             </TreeViewItem>
         </TreeView>
+        <Border Grid.Column="1" Grid.Row="1" Margin="10">
+            <Image x:Name="Image"
+                  Stretch="Fill"
+                />
+        </Border>
     </Grid>
 </Window>

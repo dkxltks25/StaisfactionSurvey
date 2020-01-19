@@ -24,6 +24,8 @@ namespace Survey
         {
             InitializeComponent();
             id.Text = Properties.Settings.Default.LoginId;
+            Image.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + "/LoginImage1.jpg", UriKind.RelativeOrAbsolute));
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

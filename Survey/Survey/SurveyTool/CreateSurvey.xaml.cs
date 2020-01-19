@@ -33,9 +33,13 @@ namespace Survey.SurveyTool
         private string Data = "";
         //0 신규 1 기존
         private int State = 0;
+       // Application.Current.MainWindow = this;
+
         public CreateSurvey(string id, string name,string Descript)
         {
             InitializeComponent();
+            Application.Current.MainWindow = this;
+
             myViewModel = new BindingList<SurveyViewModel>();
             DG1.ItemsSource = myViewModel;
             s_id = id;
@@ -43,11 +47,12 @@ namespace Survey.SurveyTool
             s_descrip = Descript;
             ManageSql Sql = new ManageSql();
             Data = Sql.selectSurvey(s_id);
+            Console.WriteLine("---------테스트");
+            Console.WriteLine(Data);
             if (!string.IsNullOrEmpty(Data))
             {
                 State = 1;
                 LoadSurvey(Data);
-                
             }
             //ConnectWeb();
             //CreateTableColumn();
@@ -220,6 +225,8 @@ namespace Survey.SurveyTool
             if (State == 0)
             {
                 Sql.insertSurvey(str_json, s_id);
+                State = 1;
+                return;
             }
             //업데이트
             if(State == 1)

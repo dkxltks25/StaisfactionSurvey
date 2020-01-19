@@ -35,6 +35,7 @@ namespace Survey
         BindingList<AdminViewModel> myViewModel;
         string[] TempList = new string[5];
         Sql sql;
+        //Application.Current.MainWindow = this;
 
         //***************************************************
         //생성자
@@ -43,6 +44,8 @@ namespace Survey
         public AdminManagementPage()
         {
             InitializeComponent();
+            Application.Current.MainWindow = this;
+
             myViewModel = new BindingList<AdminViewModel>();
             DG1.ItemsSource = myViewModel;
             AdminInfo.DataContext = new AdminViewModel();
@@ -85,6 +88,7 @@ namespace Survey
             DeleteButton.IsEnabled = false;
             CheckButton.IsEnabled = false;
             CancelButton.IsEnabled = false;
+            adminId.IsEnabled = true;
         }
         //***************************************************
         //Add, update ,Cancel을 누르기 전

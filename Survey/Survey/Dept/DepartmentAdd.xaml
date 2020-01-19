@@ -6,13 +6,13 @@
         xmlns:local="clr-namespace:Survey"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="DepartmentAdd" Height="450" Width="820">
+        Title="DepartmentAdd" Height="450" Width="945.735">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.5*"/>
             <RowDefinition/>
             <RowDefinition/>
-            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.1*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -20,35 +20,46 @@
         </Grid.ColumnDefinitions>
 
         <materialDesign:Card Grid.ColumnSpan="2">
-            <DockPanel HorizontalAlignment="Right">
-                <TextBox x:Name="SelectText"  Width="130" Margin="20,26,20,14" TextChanged="TextBox_TextChanged" ></TextBox>
-                <WrapPanel  VerticalAlignment="Center" Margin="0,2,10,1" >
-                    <Button x:Name="InfoButton"  Height="Auto" Margin="10,10,0,10" Width="66" >
-                        <materialDesign:PackIcon Kind="Information" Width="AUTO" Height="AUTO"/>
-                    </Button>
-                    <Button x:Name="SearchButton" Height="Auto" Margin="10,10,0,10" Width="66" Click="SearchButton_Click">
-                        <materialDesign:PackIcon Kind="FileSearch" Width="AUTO" Height="AUTO"/>
-                    </Button>
-                    <Button x:Name="AddButton" Height="Auto" Margin="10,10,0,10" Width="66" Click="AddButton_Click">
-                        <materialDesign:PackIcon Kind="Add" Width="AUTO" Height="AUTO"/>
-                    </Button>
-                    <Button x:Name="UpdateButton" Height="Auto" Margin="10,10,0,10" Width="66" Click="UpdateButton_Click">
-                        <materialDesign:PackIcon Kind="Update" Width="AUTO" Height="AUTO"/>
-                    </Button>
-                    <Button x:Name="DeleteButton" Height="Auto" Margin="10,10,0,10" Width="66" Click="DeleteButton_Click">
-                        <materialDesign:PackIcon Kind="Delete" Width="AUTO" Height="AUTO"/>
-                    </Button>
-                    <Button x:Name="CheckButton" Height="Auto" Margin="10,10,0,10" Width="66" Click="CheckButton_Click">
-                        <materialDesign:PackIcon Kind="Check" Width="AUTO" Height="AUTO"/>
-                    </Button>
-                    <Button x:Name="CancelButton" Height="Auto" Margin="10,10,0,10" Width="66" Click="CancelButton_Click">
-                        <materialDesign:PackIcon Kind="Clear" Width="AUTO" Height="AUTO"/>
-                    </Button>
-                    <Button x:Name="SaveButton" Height="Auto" Margin="10,10,0,10" Width="66" Click="SaveButton_Click">
-                        <materialDesign:PackIcon Kind="ContentSave" Width="AUTO" Height="AUTO"/>
-                    </Button>
-                </WrapPanel>
-            </DockPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.3*"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Border >
+                    <Canvas VerticalAlignment="Bottom" Height="8" RenderTransformOrigin="0.5,0.5" >
+                        <Label Canvas.Left="5" Canvas.Top="-27" >검색:</Label>
+                        <TextBox x:Name="SelectText"  Width="130" TextChanged="TextBox_TextChanged" Canvas.Left="43" Canvas.Top="-28" />
+                    </Canvas>
+                </Border>
+                <Border  Grid.Column="1">
+                    <WrapPanel HorizontalAlignment="Right"  VerticalAlignment="Center" Margin="0,2,10,1" >
+                        <Button x:Name="InfoButton"  Height="Auto" Margin="10,10,0,10" Width="66" >
+                            <materialDesign:PackIcon Kind="Information" Width="AUTO" Height="AUTO"/>
+                        </Button>
+                        <Button x:Name="SearchButton" Height="Auto" Margin="10,10,0,10" Width="66" Click="SearchButton_Click">
+                            <materialDesign:PackIcon Kind="FileSearch" Width="AUTO" Height="AUTO"/>
+                        </Button>
+                        <Button x:Name="AddButton" Height="Auto" Margin="10,10,0,10" Width="66" Click="AddButton_Click">
+                            <materialDesign:PackIcon Kind="Add" Width="AUTO" Height="AUTO"/>
+                        </Button>
+                        <Button x:Name="UpdateButton" Height="Auto" Margin="10,10,0,10" Width="66" Click="UpdateButton_Click">
+                            <materialDesign:PackIcon Kind="Update" Width="AUTO" Height="AUTO"/>
+                        </Button>
+                        <Button x:Name="DeleteButton" Height="Auto" Margin="10,10,0,10" Width="66" Click="DeleteButton_Click">
+                            <materialDesign:PackIcon Kind="Delete" Width="AUTO" Height="AUTO"/>
+                        </Button>
+                        <Button x:Name="CheckButton" Height="Auto" Margin="10,10,0,10" Width="66" Click="CheckButton_Click">
+                            <materialDesign:PackIcon Kind="Check" Width="AUTO" Height="AUTO"/>
+                        </Button>
+                        <Button x:Name="CancelButton" Height="Auto" Margin="10,10,0,10" Width="66" Click="CancelButton_Click">
+                            <materialDesign:PackIcon Kind="Clear" Width="AUTO" Height="AUTO"/>
+                        </Button>
+                        <Button x:Name="SaveButton" Height="Auto" Margin="10,10,0,10" Width="66" Click="SaveButton_Click">
+                            <materialDesign:PackIcon Kind="ContentSave" Width="AUTO" Height="AUTO"/>
+                        </Button>
+                    </WrapPanel>
+                </Border>
+            </Grid>
         </materialDesign:Card>
         <Border 
             Grid.Row="1" 

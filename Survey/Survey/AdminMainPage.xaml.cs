@@ -22,7 +22,7 @@ namespace Survey
         public AdminMainPage()
         {
             InitializeComponent();
-           
+            Image.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + "/main_img_01.jpg", UriKind.RelativeOrAbsolute));
             
         }
 

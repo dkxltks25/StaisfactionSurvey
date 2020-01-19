@@ -583,6 +583,53 @@ namespace Survey
                 conn.Close();
             }
         }
+        //***************************************************
+        //학생 조회 (검색)
+        //*************************************************** 
+        public void SearchStudent(BindingList<StudentAdminViewModel> myViewModel,string StuNo)
+        {
+            if(StuNo.Length < 3)
+            {
+                return ;
+            }
+            String sql = "Select * from sasu_std where stu_stuNo like '%" + StuNo+"%'";
+            try
+            {
+                connectionOpen();
+                cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                myViewModel.Clear();
+                while (reader.Read())
+                {
+                    //stu_stuno, stu_resno, stu_name, stu_sex, stu_dept, stu_phone, stu_email, stu_password, datasys1, datasys2, datasys3
+                    string ResNo = reader["stu_resno"].ToString();
+
+                    StudentAdminViewModel Data = new StudentAdminViewModel
+                    {
+                        StudentCode = "S",
+                        StudentNumber = reader["stu_stuno"].ToString(),
+                        StudentResNumber1 = ResNo.Substring(0, 6),
+                        StudentResNumber2 = ResNo.Substring(6),
+                        StudentEmail = reader["stu_email"].ToString(),
+                        StudentName = reader["stu_name"].ToString(),
+                        StudentPassword = reader["stu_password"].ToString(),
+                        StudentPhone = reader["stu_phone"].ToString(),
+                        StudentSex = reader["stu_sex"].ToString(),
+                        StudentDept = reader["stu_dept"].ToString(),
+                    };
+                    myViewModel.Insert(myViewModel.Count, Data);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                cmd = null;
+                conn.Close();
+            }
+        }
         #endregion
 
         #region SelectSurveyPage query

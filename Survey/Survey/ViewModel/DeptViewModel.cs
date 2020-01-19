@@ -49,8 +49,8 @@ namespace Survey.ViewModel
                 NotifyPropertyChanged("DeptName");
             }
         }
-        private string CreateAt;
-        public string DeptCreateAt
+        private DateTime CreateAt = DateTime.Now;
+        public DateTime DeptCreateAt
         {
             get
             {

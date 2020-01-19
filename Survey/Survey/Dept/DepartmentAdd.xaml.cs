@@ -35,6 +35,8 @@ namespace Survey
         public DepartmentAdd()
         {
             InitializeComponent();
+            Application.Current.MainWindow = this;
+
             myViewModel = new BindingList<DeptViewModel>();
             DG1.ItemsSource = myViewModel;
             DeptInfo.DataContext = new DeptViewModel();
